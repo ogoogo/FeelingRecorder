@@ -3,9 +3,13 @@ package com.pico.ogoshi.feelingrecorder
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import io.realm.Realm
+import io.realm.RealmResults
 import kotlinx.android.synthetic.main.activity_saved.*
+import kotlin.random.Random
 
 class SavedActivity : AppCompatActivity() {
+    val realm: Realm = Realm.getDefaultInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +25,18 @@ class SavedActivity : AppCompatActivity() {
         writingButton.setOnClickListener {
             startActivity(writingIntent)
         }
+
+        val goodfeelings :RealmResults<Memo> = readGood()
+        val randomGood= goodfeelings[Random.nextInt(goodfeelings.size)]
+        massageTextView.text=randomGood?.event.toString()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        realm.close()
+    }
+    fun readGood():RealmResults<Memo>{
+        return realm.where(Memo::class.java).equalTo("good",true).findAll()
     }
 }
 
