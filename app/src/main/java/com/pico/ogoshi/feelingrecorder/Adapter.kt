@@ -27,7 +27,7 @@ class Adapter(
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val event :Memo= eventList?.get(position)?:return
-            holder.dateText.text=event.date.toString()
+            holder.dateText.text=event.date.toString()+"日"
             holder.eventText.text=event.event
 
 

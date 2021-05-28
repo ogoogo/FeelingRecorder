@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.realm.Realm
 import io.realm.RealmResults
+import io.realm.Sort
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -20,14 +21,21 @@ class MainActivity : AppCompatActivity() {
         val eventList=read()
 
 
+        /*
+        realm.executeTransaction{
+            eventList.deleteAllFromRealm()
+        }
+        */
 
 
+
+/*
         if (eventList.isEmpty()){
             for (i in 0..10){
                 create(26,"岡田准一${i}にあった！")
             }
         }
-
+*/
         val adapter=Adapter(this,eventList,true)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager=LinearLayoutManager(this)
@@ -46,7 +54,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun read(): RealmResults<Memo>{
-        return realm.where(Memo::class.java).findAll()
+        return realm.where(Memo::class.java).equalTo("good",true)
+                                            .sort("date",Sort.DESCENDING)
+                                            .findAll()
     }
 
     fun create(date:Int, event:String){

@@ -9,7 +9,10 @@ open class Memo (
     open var date :Int=0,
     open var event:String = "",
     open var barometer:Int=0,
-    open var good:Boolean=true
+    open var good:Boolean=true,
+    open var quoteOrNot:Boolean=true,
+    open var personName:String="",
+    open var quote:String=""
 ): RealmObject()
 
 
