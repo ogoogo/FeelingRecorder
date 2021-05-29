@@ -21,12 +21,12 @@ class MainActivity : AppCompatActivity() {
         val eventList=read()
 
 
-        /*
+/*
         realm.executeTransaction{
             eventList.deleteAllFromRealm()
         }
-        */
 
+*/
 
 
 /*
