@@ -55,8 +55,9 @@ class MainActivity : AppCompatActivity() {
 
     fun read(): RealmResults<Memo>{
         return realm.where(Memo::class.java).equalTo("good",true)
-                                            .sort("date",Sort.DESCENDING)
                                             .findAll()
+                                            .sort("createdAt",Sort.DESCENDING)
+                                            .sort("date",Sort.DESCENDING)
     }
 
     fun create(date:Int, event:String){

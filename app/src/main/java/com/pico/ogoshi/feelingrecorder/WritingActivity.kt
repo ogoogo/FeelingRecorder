@@ -1,5 +1,6 @@
 package com.pico.ogoshi.feelingrecorder
 
+import android.app.DatePickerDialog
 import android.app.Person
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -44,23 +45,61 @@ class WritingActivity : AppCompatActivity() {
 
         val savedIntent:Intent = Intent(this, SavedActivity::class.java)
 
+        val c = Calendar.getInstance()
+        var year = c.get(Calendar.YEAR)
+        var month = c.get(Calendar.MONTH)+1
+        var  day = c.get(Calendar.DAY_OF_MONTH)
+
+
+        todayButton.setOnClickListener {
+            year = c.get(Calendar.YEAR)
+            month = c.get(Calendar.MONTH)+1
+            day = c.get(Calendar.DAY_OF_MONTH)
+            dateTextView.text="${year}年${month}月${day}日に"
+        }
+
+        yesterdayButton.setOnClickListener {
+            year = c.get(Calendar.YEAR)
+            month = c.get(Calendar.MONTH)+1
+            day = c.get(Calendar.DAY_OF_MONTH)-1
+            dateTextView.text="${year}年${month}月${day}日に"
+        }
+
+        otherDayButton.setOnClickListener {
+            val datePickerDialog= DatePickerDialog(
+                this,
+                DatePickerDialog.OnDateSetListener { view, y, m, d ->
+                    year=y
+                    month=m+1
+                    day=d
+                    dateTextView.text="${year}年${month}月${day}日に"
+                },
+                c.get(Calendar.YEAR),
+                c.get(Calendar.MONTH),
+                c.get(Calendar.DAY_OF_MONTH)
+            )
+            datePickerDialog.show()
+        }
+
+
+
         saveButton.setOnClickListener {
 
             if(quoteOrNot){
 
-                val date:Int=dateEditText.text.toString().toInt()
+
                 val personName:String=PersonEditText.text.toString()
                 val quote:String=eventText.text.toString()
                 val barometer:Int=barometerEditText.text.toString().toInt()
                 val event="「${quote}」by${personName}"
-                save(event,date,good2,barometer,personName,quoteOrNot,quote)
+                save(event,day,good2,barometer,personName,quoteOrNot,quote)
                 savedIntent.putExtra("quote",quote)
             }else {
 
                 val event: String = eventText.text.toString()
-                val date: Int = dateEditText.text.toString().toInt()
+
                 val barometer: Int = barometerEditText.text.toString().toInt()
-                save(event, date, good2, barometer,"",quoteOrNot,"")
+                save(event, day, good2, barometer,"",quoteOrNot,"")
             }
 
             savedIntent.putExtra("good2",good2)

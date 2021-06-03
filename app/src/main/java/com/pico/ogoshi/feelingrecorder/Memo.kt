@@ -12,7 +12,11 @@ open class Memo (
     open var good:Boolean=true,
     open var quoteOrNot:Boolean=true,
     open var personName:String="",
-    open var quote:String=""
+    open var quote:String="",
+    open var createdAt:Date=Date(System.currentTimeMillis()),
+    open var year:Int=0,
+    open var month:Int=0
+
 ): RealmObject()
 
 
