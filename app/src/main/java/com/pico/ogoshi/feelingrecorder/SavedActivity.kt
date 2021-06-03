@@ -32,8 +32,18 @@ class SavedActivity : AppCompatActivity() {
             val goodfeelings: RealmResults<Memo> = readGood()
             val randomGood = goodfeelings[Random.nextInt(goodfeelings.size)]
             val goodText :String = randomGood?.event.toString()
+            val goodYear:String = randomGood?.year.toString()
+            val goodMonth:String = randomGood?.month.toString()
             val goodDate :String = randomGood?.date.toString()
-            messageTextView.text="${goodDate}日は、こんなことがあったみたいですよ！\n${goodText}"
+            val goodPerson:String = randomGood?.personName.toString()
+            val goodQUote:String = randomGood?.quote.toString()
+            val goodQuoteOrNot = randomGood?.quoteOrNot
+
+            if(goodQuoteOrNot==false) {
+                messageTextView.text = "${goodYear}年${goodMonth}月${goodDate}日には、こんなことがあったみたいですよ！\n${goodText}"
+            }else if(goodQuoteOrNot==true){
+                messageTextView.text = "${goodYear}年${goodMonth}月${goodDate}日には\n${goodPerson}に「\n${goodQUote}」と言われました!!"
+            }
         }else{
             if(quoteOrNot) {
                 val quote:String?=intent.getStringExtra("quote")

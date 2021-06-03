@@ -92,14 +92,14 @@ class WritingActivity : AppCompatActivity() {
                 val quote:String=eventText.text.toString()
                 val barometer:Int=barometerEditText.text.toString().toInt()
                 val event="「${quote}」by${personName}"
-                save(event,day,good2,barometer,personName,quoteOrNot,quote)
+                save(event,day,good2,barometer,personName,quoteOrNot,quote,year,month)
                 savedIntent.putExtra("quote",quote)
             }else {
 
                 val event: String = eventText.text.toString()
 
                 val barometer: Int = barometerEditText.text.toString().toInt()
-                save(event, day, good2, barometer,"",quoteOrNot,"")
+                save(event, day, good2, barometer,"",quoteOrNot,"",year,month)
             }
 
             savedIntent.putExtra("good2",good2)
@@ -118,7 +118,15 @@ class WritingActivity : AppCompatActivity() {
         realm.close()
     }
 
-    fun save(event:String, date:Int, good:Boolean, barometer:Int,personName:String,quoteOrNot:Boolean,quote:String){
+    fun save(event:String,
+             date:Int,
+             good:Boolean,
+             barometer:Int,
+             personName:String,
+             quoteOrNot:Boolean,
+             quote:String,
+             year:Int,
+             month:Int){
         realm.executeTransaction{
            val newMemo:Memo=it.createObject(Memo::class.java,UUID.randomUUID().toString())
             newMemo.event=event
@@ -128,6 +136,8 @@ class WritingActivity : AppCompatActivity() {
             newMemo.personName=personName
             newMemo.quoteOrNot=quoteOrNot
             newMemo.quote=quote
+            newMemo.year=year
+            newMemo.month=month
 
         }
     }

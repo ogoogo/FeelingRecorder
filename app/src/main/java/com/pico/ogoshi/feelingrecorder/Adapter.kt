@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import io.realm.OrderedRealmCollection
@@ -14,6 +15,8 @@ class Adapter(
     private var eventList: OrderedRealmCollection<Memo>?,
     private val autoUpdate: Boolean
     ) : RealmRecyclerViewAdapter<Memo,Adapter.ViewHolder>(eventList,autoUpdate) {
+
+    lateinit var listener: OnItemClickListener
 
         class ViewHolder(view: View):RecyclerView.ViewHolder(view){
             val dateText:TextView=view.findViewById(R.id.datetextView)
@@ -27,8 +30,12 @@ class Adapter(
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val event :Memo= eventList?.get(position)?:return
-            holder.dateText.text=event.date.toString()+"日"
+            holder.dateText.text="${event.year.toString()}年\n${event.month.toString()}月${event.date.toString()}日"
             holder.eventText.text=event.event
+            holder.itemView.setOnClickListener{
+                listener.onItemClick(it,position,event)
+            }
+
 
 
         }
@@ -36,5 +43,14 @@ class Adapter(
         override fun getItemCount(): Int {
             return eventList?.size?:0
         }
+
+        interface OnItemClickListener{
+            fun onItemClick(view:View, position: Int, event:Memo)
+        }
+
+        fun setOnItemClickListener(listener:OnItemClickListener){
+            this.listener=listener
+        }
+
 
 }
