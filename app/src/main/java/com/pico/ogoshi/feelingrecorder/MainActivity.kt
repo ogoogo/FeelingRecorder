@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val writingIntent: Intent = Intent(this, ChoosingActivity::class.java)
+        val detailIntent=Intent(this,DetailActivity::class.java)
         val eventList=read()
 
 
@@ -43,7 +44,11 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter=adapter
         adapter.setOnItemClickListener(object:Adapter.OnItemClickListener{
             override fun onItemClick(view: View, position: Int,event:Memo) {
-                
+
+                val id = event.id
+                detailIntent.putExtra("idInQuestion",id)
+                startActivity(detailIntent)
+
             }
         })
 
