@@ -92,6 +92,14 @@ class EditActivity : AppCompatActivity() {
             startActivity(editedIntent)
         }
 
+        deleteButton.setOnClickListener {
+            realm.executeTransaction {
+                val deletingData=realm.where(Memo::class.java).equalTo("id",editingId).findFirst()
+                deletingData?.deleteFromRealm()
+            }
+            startActivity(editedIntent)
+        }
+
 
 
     }
