@@ -1,10 +1,12 @@
 package com.pico.ogoshi.feelingrecorder
 
+import android.app.Application
 import android.app.DatePickerDialog
 import android.app.Person
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.core.view.isVisible
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_writing.*
@@ -32,6 +34,7 @@ class WritingActivity : AppCompatActivity() {
             textView2.isVisible=false
             eventText.hint="出来事"
             textView3.isVisible=false
+            Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_LONG)
         }
         quoteButton.setOnClickListener {
             quoteOrNot=true
@@ -49,6 +52,7 @@ class WritingActivity : AppCompatActivity() {
         var year = c.get(Calendar.YEAR)
         var month = c.get(Calendar.MONTH)+1
         var  day = c.get(Calendar.DAY_OF_MONTH)
+        dateTextView.text="${year}年${month}月${day}日に"
 
 
         todayButton.setOnClickListener {
@@ -80,32 +84,49 @@ class WritingActivity : AppCompatActivity() {
             )
             datePickerDialog.show()
         }
+/*
+        var personName=""
+        var quote=""
+        var barometer=0
+        var event=""
+*/
+
 
 
 
         saveButton.setOnClickListener {
 
             if(quoteOrNot){
+                if (PersonEditText.length()!=0 && eventText.length()!=0 && barometerEditText.length()!=0){
+                    val personName=PersonEditText.text.toString()
+                    val quote=eventText.text.toString()
+                    val barometer=barometerEditText.text.toString().toInt()
+                    val event="「${quote}」by${personName}"
+                    save(event!!,day,good2,barometer!!,personName!!,quoteOrNot,quote!!,year,month)
+                    savedIntent.putExtra("quote",quote)
+                    savedIntent.putExtra("good2",good2)
+                    savedIntent.putExtra("quoteOrNot",quoteOrNot)
+                    startActivity(savedIntent)
 
+                } else{
+                    Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_SHORT).show()
+                }
 
-                val personName:String=PersonEditText.text.toString()
-                val quote:String=eventText.text.toString()
-                val barometer:Int=barometerEditText.text.toString().toInt()
-                val event="「${quote}」by${personName}"
-                save(event,day,good2,barometer,personName,quoteOrNot,quote,year,month)
-                savedIntent.putExtra("quote",quote)
             }else {
+                if (eventText.length()!=0 && barometerEditText.length()!=0){
+                    val event = eventText.text.toString()
+                    val barometer= barometerEditText.text.toString().toInt()
+                    save(event!!, day, good2, barometer!!,"",quoteOrNot,"",year,month)
+                    savedIntent.putExtra("good2",good2)
+                    savedIntent.putExtra("quoteOrNot",quoteOrNot)
+                    startActivity(savedIntent)
+                } else{
+                    Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_LONG).show()
+                }
 
-                val event: String = eventText.text.toString()
-
-                val barometer: Int = barometerEditText.text.toString().toInt()
-                save(event, day, good2, barometer,"",quoteOrNot,"",year,month)
             }
 
-            savedIntent.putExtra("good2",good2)
-            savedIntent.putExtra("quoteOrNot",quoteOrNot)
 
-            startActivity(savedIntent)
 
 
         }
