@@ -1,5 +1,8 @@
 package com.pico.ogoshi.feelingrecorder
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +20,31 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+//アラームの設定
+        var alarmMgr: AlarmManager? = null
+        lateinit var alarmIntent: PendingIntent
+
+        alarmMgr = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmIntent = Intent(this, NewAppWidget::class.java).let { intent ->
+            PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        }
+        val calendar: Calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, 18)
+            set(Calendar.MINUTE, 33)
+        }
+        alarmMgr?.setInexactRepeating(
+            AlarmManager.RTC,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_HALF_DAY,
+            alarmIntent
+        )
+
+//以上アラーム
+
+
+
 
         val writingIntent: Intent = Intent(this, ChoosingActivity::class.java)
         val detailIntent=Intent(this,DetailActivity::class.java)

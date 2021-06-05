@@ -1,9 +1,13 @@
 package com.pico.ogoshi.feelingrecorder
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.view.isVisible
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -42,6 +46,24 @@ class EditActivity : AppCompatActivity() {
 
         }
 
+        var diaryOrNot=editingData?.diaryOrNot
+        diaryEditTextEdit.setText(editingData?.diary)
+        if (diaryOrNot==false){
+            diaryEditTextEdit.isVisible=false
+            diaryButtonEdit.text="日記を追加する"
+        }
+        diaryButtonEdit.setOnClickListener {
+            if (diaryOrNot == false) {
+                diaryOrNot = true
+                diaryEditTextEdit.isVisible = true
+                diaryButtonEdit.text = "日記を保存しない"
+            } else {
+                diaryOrNot = false
+                diaryEditTextEdit.isVisible = false
+                diaryButtonEdit.text = "日記を追加する"
+            }
+        }
+
 
         todayButtonEdit.setOnClickListener {
             year = c.get(Calendar.YEAR)
@@ -78,16 +100,37 @@ class EditActivity : AppCompatActivity() {
 
         saveButtonEdit.setOnClickListener {
             if (editingData?.quoteOrNot==true){
-                val newPerson:String = PersonEditTextEdit.text.toString()
-                val newQuote :String= eventTextEdit.text.toString()
-                val newBarometer :Int = barometerEditTextEdit.text.toString().toInt()
-                val newEvent = "「${newQuote}」 by${newPerson}"
-                edit(editingId!!,newPerson,newQuote,newBarometer,newEvent,year!!,month!!,day!!)
+                if(diaryOrNot==true && diaryEditTextEdit.length()!=0){
+                    val newPerson:String = PersonEditTextEdit.text.toString()
+                    val newQuote :String= eventTextEdit.text.toString()
+                    val newBarometer :Int = barometerEditTextEdit.text.toString().toInt()
+                    val newEvent = "「${newQuote}」 by${newPerson}"
+                    val newDiary = diaryEditTextEdit.text.toString()
+                    edit(editingId!!,newPerson,newQuote,newBarometer,newEvent,year!!,month!!,day!!,diaryOrNot!!,newDiary)
+                }else if(diaryOrNot==true && diaryEditTextEdit.length()==0){
+                    Toast.makeText(applicationContext,"全て埋めてください！", Toast.LENGTH_SHORT).show()
+                }else if(diaryOrNot==false){
+                    val newPerson:String = PersonEditTextEdit.text.toString()
+                    val newQuote :String= eventTextEdit.text.toString()
+                    val newBarometer :Int = barometerEditTextEdit.text.toString().toInt()
+                    val newEvent = "「${newQuote}」 by${newPerson}"
+                    edit(editingId!!,newPerson,newQuote,newBarometer,newEvent,year!!,month!!,day!!,diaryOrNot!!,"")
+                }
 
             }else if (editingData?.quoteOrNot==false){
-                val newEvent :String= eventTextEdit.text.toString()
-                val newBarometer :Int = barometerEditTextEdit.text.toString().toInt()
-                edit(editingId!!,"","",newBarometer,newEvent,year!!,month!!,day!!)
+                if(diaryOrNot==true && diaryEditTextEdit.length()!=0){
+                    val newEvent :String= eventTextEdit.text.toString()
+                    val newBarometer :Int = barometerEditTextEdit.text.toString().toInt()
+                    val newDiary = diaryEditTextEdit.text.toString()
+                    edit(editingId!!,"","",newBarometer,newEvent,year!!,month!!,day!!,diaryOrNot!!,newDiary)
+                }else if (diaryOrNot==true && diaryEditTextEdit.length()==0){
+                    Toast.makeText(applicationContext,"全て埋めてください！", Toast.LENGTH_SHORT).show()
+                }else if (diaryOrNot==false){
+                    val newEvent :String= eventTextEdit.text.toString()
+                    val newBarometer :Int = barometerEditTextEdit.text.toString().toInt()
+                    edit(editingId!!,"","",newBarometer,newEvent,year!!,month!!,day!!,diaryOrNot!!,"")
+                }
+
             }
             startActivity(editedIntent)
         }
@@ -103,7 +146,24 @@ class EditActivity : AppCompatActivity() {
 
 
     }
-    fun edit(id:String,personName:String,quote:String,barometer:Int,event: String,year:Int,month:Int,day:Int){
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        // InputMethodManager をキャストしながら取得
+        val inputMethodManager: InputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        // エルビス演算子でViewを取得できなければ return false
+        // focusViewには入力しようとしているのEditTextが取得されるはず
+        val focusView = currentFocus ?: return false
+
+        // このメソッドでキーボードを閉じる
+        inputMethodManager.hideSoftInputFromWindow(
+            focusView.windowToken,
+            InputMethodManager.HIDE_NOT_ALWAYS
+        )
+
+        return false
+    }
+    fun edit(id:String,personName:String,quote:String,barometer:Int,event: String,year:Int,month:Int,day:Int,diaryOrNot:Boolean,diary:String){
         realm.executeTransaction {
             val changingData:Memo?=realm.where(Memo::class.java).equalTo("id",id).findFirst()
             changingData?.year=year
@@ -113,6 +173,8 @@ class EditActivity : AppCompatActivity() {
             changingData?.quote=quote
             changingData?.barometer=barometer
             changingData?.event=event
+            changingData?.diaryOrNot=diaryOrNot
+            changingData?.diary=diary
         }
     }
 

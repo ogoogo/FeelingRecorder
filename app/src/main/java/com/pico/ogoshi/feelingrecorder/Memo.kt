@@ -15,7 +15,9 @@ open class Memo (
     open var quote:String="",
     open var createdAt:Date=Date(System.currentTimeMillis()),
     open var year:Int=0,
-    open var month:Int=0
+    open var month:Int=0,
+    open var diaryOrNot:Boolean=false,
+    open var diary:String=""
 
 ): RealmObject()
 

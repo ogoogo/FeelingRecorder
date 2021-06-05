@@ -1,11 +1,12 @@
 package com.pico.ogoshi.feelingrecorder
 
-import android.app.Application
 import android.app.DatePickerDialog
-import android.app.Person
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.view.isVisible
 import io.realm.Realm
@@ -28,7 +29,24 @@ class WritingActivity : AppCompatActivity() {
             barometerTextView.text="ヤナコト度"
         }
 
+        var diaryOrNot=false
+        diaryEditText.isVisible=false
+        diaryButton.setOnClickListener {
+            if (diaryOrNot==false){
+                diaryOrNot=true
+                diaryEditText.isVisible=true
+                diaryButton.text="日記を保存しない"
+            }else{
+                diaryOrNot=false
+                diaryEditText.isVisible=false
+                diaryButton.text="日記を追加する"
+            }
+
+        }
+
         otherButton.setOnClickListener {
+ //           val dialog = DiaryDialogFragment()
+ //           dialog.show(supportFragmentManager, "simple")
             quoteOrNot=false
             PersonEditText.isVisible=false
             textView2.isVisible=false
@@ -84,12 +102,6 @@ class WritingActivity : AppCompatActivity() {
             )
             datePickerDialog.show()
         }
-/*
-        var personName=""
-        var quote=""
-        var barometer=0
-        var event=""
-*/
 
 
 
@@ -97,37 +109,66 @@ class WritingActivity : AppCompatActivity() {
         saveButton.setOnClickListener {
 
             if(quoteOrNot){
-                if (PersonEditText.length()!=0 && eventText.length()!=0 && barometerEditText.length()!=0){
-                    val personName=PersonEditText.text.toString()
-                    val quote=eventText.text.toString()
-                    val barometer=barometerEditText.text.toString().toInt()
-                    val event="「${quote}」by${personName}"
-                    save(event!!,day,good2,barometer!!,personName!!,quoteOrNot,quote!!,year,month)
-                    savedIntent.putExtra("quote",quote)
-                    savedIntent.putExtra("good2",good2)
-                    savedIntent.putExtra("quoteOrNot",quoteOrNot)
-                    startActivity(savedIntent)
+                if (diaryOrNot){
+                    if(PersonEditText.length()!=0 && eventText.length()!=0 && barometerEditText.length()!=0 && diaryEditText.length()!=0){
+                        val personName=PersonEditText.text.toString()
+                        val quote=eventText.text.toString()
+                        val barometer=barometerEditText.text.toString().toInt()
+                        val event="「${quote}」by${personName}"
+                        val diary=diaryEditText.text.toString()
+                        save(event,day,good2,barometer,personName,quoteOrNot,quote,year,month,diaryOrNot,diary)
+                        savedIntent.putExtra("quote",quote)
+                        savedIntent.putExtra("good2",good2)
+                        savedIntent.putExtra("quoteOrNot",quoteOrNot)
+                        startActivity(savedIntent)
+                    }else{
+                        Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_SHORT).show()
+                    }
 
                 } else{
-                    Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_SHORT).show()
+                    if(PersonEditText.length()!=0 && eventText.length()!=0 && barometerEditText.length()!=0 ){
+                        val personName=PersonEditText.text.toString()
+                        val quote=eventText.text.toString()
+                        val barometer=barometerEditText.text.toString().toInt()
+                        val event="「${quote}」by${personName}"
+                        save(event!!,day,good2,barometer!!,personName!!,quoteOrNot,quote!!,year,month,diaryOrNot,"")
+                        savedIntent.putExtra("quote",quote)
+                        savedIntent.putExtra("good2",good2)
+                        savedIntent.putExtra("quoteOrNot",quoteOrNot)
+                        startActivity(savedIntent)
+                    }else{
+                        Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_SHORT).show()
+                    }
                 }
 
             }else {
-                if (eventText.length()!=0 && barometerEditText.length()!=0){
-                    val event = eventText.text.toString()
-                    val barometer= barometerEditText.text.toString().toInt()
-                    save(event!!, day, good2, barometer!!,"",quoteOrNot,"",year,month)
-                    savedIntent.putExtra("good2",good2)
-                    savedIntent.putExtra("quoteOrNot",quoteOrNot)
-                    startActivity(savedIntent)
-                } else{
-                    Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_LONG).show()
+                if (diaryOrNot){
+                    if (eventText.length()!=0 && barometerEditText.length()!=0 && diaryEditText.length()!=0){
+                        val event = eventText.text.toString()
+                        val barometer= barometerEditText.text.toString().toInt()
+                        val diary = diaryEditText.text.toString()
+                        save(event, day, good2, barometer,"",quoteOrNot,"",year,month,diaryOrNot,diary)
+                        savedIntent.putExtra("good2",good2)
+                        savedIntent.putExtra("quoteOrNot",quoteOrNot)
+                        startActivity(savedIntent)
+                    } else{
+                        Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_LONG).show()
+                    }
+                }else{
+                    if (eventText.length()!=0 && barometerEditText.length()!=0){
+                        val event = eventText.text.toString()
+                        val barometer= barometerEditText.text.toString().toInt()
+                        save(event, day, good2, barometer,"",quoteOrNot,"",year,month,diaryOrNot,"")
+                        savedIntent.putExtra("good2",good2)
+                        savedIntent.putExtra("quoteOrNot",quoteOrNot)
+                        startActivity(savedIntent)
+                    } else{
+                        Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_LONG).show()
+                    }
                 }
 
+
             }
-
-
-
 
         }
 
@@ -138,6 +179,28 @@ class WritingActivity : AppCompatActivity() {
         super.onDestroy()
         realm.close()
     }
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        // InputMethodManager をキャストしながら取得
+        val inputMethodManager: InputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        // エルビス演算子でViewを取得できなければ return false
+        // focusViewには入力しようとしているのEditTextが取得されるはず
+        val focusView = currentFocus ?: return false
+
+        // このメソッドでキーボードを閉じる
+        inputMethodManager.hideSoftInputFromWindow(
+            focusView.windowToken,
+            InputMethodManager.HIDE_NOT_ALWAYS
+        )
+
+        return false
+    }
+    /*
+    override fun onDialogTextRecieve(dialog: DialogFragment, diary: String) {
+
+        Log.d("dialog",diary)
+    }*/
 
     fun save(event:String,
              date:Int,
@@ -147,7 +210,9 @@ class WritingActivity : AppCompatActivity() {
              quoteOrNot:Boolean,
              quote:String,
              year:Int,
-             month:Int){
+             month:Int,
+             diaryOrNot:Boolean,
+             diary:String){
         realm.executeTransaction{
            val newMemo:Memo=it.createObject(Memo::class.java,UUID.randomUUID().toString())
             newMemo.event=event
@@ -159,6 +224,8 @@ class WritingActivity : AppCompatActivity() {
             newMemo.quote=quote
             newMemo.year=year
             newMemo.month=month
+            newMemo.diaryOrNot=diaryOrNot
+            newMemo.diary=diary
 
         }
     }

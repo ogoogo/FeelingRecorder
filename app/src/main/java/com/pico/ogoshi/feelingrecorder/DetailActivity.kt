@@ -14,6 +14,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         val editIntent:Intent= Intent(this,EditActivity::class.java)
+        diaryTextView.isVisible=false
 
         val idInQuestion:String?=intent.getStringExtra("idInQuestion")
         val dataInQuestion:Memo?=realm.where(Memo::class.java).equalTo("id",idInQuestion).findFirst()
@@ -29,7 +30,12 @@ class DetailActivity : AppCompatActivity() {
             textView3Detail.isVisible=false
             dateTextViewDetail.text="${dataInQuestion.year}年${dataInQuestion.month}月${dataInQuestion.date}日に"
             eventTextDetail.text=dataInQuestion.event
+            barometerTextDetail.text=dataInQuestion?.barometer.toString()
+        }
 
+        if(dataInQuestion?.diaryOrNot==true){
+            diaryTextView.isVisible=true
+            diaryTextView.text=dataInQuestion?.diary
         }
 
         editButtonDetail.setOnClickListener {
