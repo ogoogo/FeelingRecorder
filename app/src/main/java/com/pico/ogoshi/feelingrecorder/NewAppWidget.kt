@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.RemoteViews
+import android.widget.Toast
 import io.realm.Realm
 import kotlin.random.Random
 
@@ -41,6 +42,10 @@ class NewAppWidget : AppWidgetProvider() {
     override fun onReceive(context: Context?, intent: Intent?) {
         super.onReceive(context, intent)
         if (context == null || intent == null) return
+        Toast.makeText(context,"全て埋めてください！", Toast.LENGTH_LONG)
+
+
+
 
 
 

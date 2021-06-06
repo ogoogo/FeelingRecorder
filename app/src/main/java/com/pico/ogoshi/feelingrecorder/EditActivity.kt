@@ -35,33 +35,36 @@ class EditActivity : AppCompatActivity() {
             dateTextViewEdit.text="${year}年${month}月${day}日に"
             PersonEditTextEdit.setText(editingData.personName)
             eventTextEdit.setText(editingData.quote)
-            barometerEditTextEdit.setText(editingData.barometer.toString())
+            barometerSliderEdit.setValue(editingData.barometer.toFloat())
         }else if (editingData?.quoteOrNot==false){
             PersonEditTextEdit.isVisible=false
             textView2Edit.isVisible=false
             textView3Edit.isVisible=false
             dateTextViewEdit.text="${year}年${month}月${day}日に"
             eventTextEdit.setText(editingData.event)
-            barometerEditTextEdit.setText(editingData.barometer.toString())
+            barometerSliderEdit.setValue(editingData.barometer.toFloat())
 
         }
 
-        var diaryOrNot=editingData?.diaryOrNot
-        diaryEditTextEdit.setText(editingData?.diary)
-        if (diaryOrNot==false){
-            diaryEditTextEdit.isVisible=false
-            diaryButtonEdit.text="日記を追加する"
-        }
-        diaryButtonEdit.setOnClickListener {
-            if (diaryOrNot == false) {
-                diaryOrNot = true
-                diaryEditTextEdit.isVisible = true
-                diaryButtonEdit.text = "日記を保存しない"
-            } else {
-                diaryOrNot = false
-                diaryEditTextEdit.isVisible = false
-                diaryButtonEdit.text = "日記を追加する"
+        var diaryOrNot=false
+        diaryEditTextEdit.isVisible=false
+
+        diarySwitchEdit.setOnCheckedChangeListener { buttonView, isChecked
+            // Responds to switch being checked/unchecked
+            ->
+            diaryOrNot=isChecked
+            if (diaryOrNot){
+                diaryEditTextEdit.isVisible=true
+            }else{
+                diaryOrNot=false
+                diaryEditTextEdit.isVisible=false
             }
+        }
+
+        var newBarometer=1
+        barometerSliderEdit.addOnChangeListener { slider, value, fromUser ->
+            // Responds to when slider's value is changed
+            newBarometer=value.toInt()
         }
 
 
@@ -103,7 +106,6 @@ class EditActivity : AppCompatActivity() {
                 if(diaryOrNot==true && diaryEditTextEdit.length()!=0){
                     val newPerson:String = PersonEditTextEdit.text.toString()
                     val newQuote :String= eventTextEdit.text.toString()
-                    val newBarometer :Int = barometerEditTextEdit.text.toString().toInt()
                     val newEvent = "「${newQuote}」 by${newPerson}"
                     val newDiary = diaryEditTextEdit.text.toString()
                     edit(editingId!!,newPerson,newQuote,newBarometer,newEvent,year!!,month!!,day!!,diaryOrNot!!,newDiary)
@@ -112,7 +114,6 @@ class EditActivity : AppCompatActivity() {
                 }else if(diaryOrNot==false){
                     val newPerson:String = PersonEditTextEdit.text.toString()
                     val newQuote :String= eventTextEdit.text.toString()
-                    val newBarometer :Int = barometerEditTextEdit.text.toString().toInt()
                     val newEvent = "「${newQuote}」 by${newPerson}"
                     edit(editingId!!,newPerson,newQuote,newBarometer,newEvent,year!!,month!!,day!!,diaryOrNot!!,"")
                 }
@@ -120,14 +121,12 @@ class EditActivity : AppCompatActivity() {
             }else if (editingData?.quoteOrNot==false){
                 if(diaryOrNot==true && diaryEditTextEdit.length()!=0){
                     val newEvent :String= eventTextEdit.text.toString()
-                    val newBarometer :Int = barometerEditTextEdit.text.toString().toInt()
                     val newDiary = diaryEditTextEdit.text.toString()
                     edit(editingId!!,"","",newBarometer,newEvent,year!!,month!!,day!!,diaryOrNot!!,newDiary)
                 }else if (diaryOrNot==true && diaryEditTextEdit.length()==0){
                     Toast.makeText(applicationContext,"全て埋めてください！", Toast.LENGTH_SHORT).show()
                 }else if (diaryOrNot==false){
                     val newEvent :String= eventTextEdit.text.toString()
-                    val newBarometer :Int = barometerEditTextEdit.text.toString().toInt()
                     edit(editingId!!,"","",newBarometer,newEvent,year!!,month!!,day!!,diaryOrNot!!,"")
                 }
 

@@ -30,9 +30,9 @@ class MainActivity : AppCompatActivity() {
             PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
         val calendar: Calendar = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 18)
-            set(Calendar.MINUTE, 33)
+            timeInMillis = System.currentTimeMillis()+5000
+    //        set(Calendar.HOUR_OF_DAY, 18)
+     //      set(Calendar.MINUTE, 33)
         }
         alarmMgr?.setInexactRepeating(
             AlarmManager.RTC,

@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.view.isVisible
+import com.google.android.material.slider.Slider
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_writing.*
 import java.util.*
@@ -17,7 +18,7 @@ class WritingActivity : AppCompatActivity() {
 
     val realm:Realm = Realm.getDefaultInstance()
     var quoteOrNot:Boolean=true
-
+    var barometer:Int=1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_writing)
@@ -31,28 +32,25 @@ class WritingActivity : AppCompatActivity() {
 
         var diaryOrNot=false
         diaryEditText.isVisible=false
-        diaryButton.setOnClickListener {
-            if (diaryOrNot==false){
-                diaryOrNot=true
+
+        diarySwitch.setOnCheckedChangeListener { buttonView, isChecked
+            // Responds to switch being checked/unchecked
+            ->
+            diaryOrNot=isChecked
+            if (diaryOrNot){
                 diaryEditText.isVisible=true
-                diaryButton.text="日記を保存しない"
             }else{
                 diaryOrNot=false
                 diaryEditText.isVisible=false
-                diaryButton.text="日記を追加する"
             }
-
         }
 
         otherButton.setOnClickListener {
- //           val dialog = DiaryDialogFragment()
- //           dialog.show(supportFragmentManager, "simple")
             quoteOrNot=false
             PersonEditText.isVisible=false
             textView2.isVisible=false
             eventText.hint="出来事"
             textView3.isVisible=false
-            Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_LONG)
         }
         quoteButton.setOnClickListener {
             quoteOrNot=true
@@ -103,6 +101,10 @@ class WritingActivity : AppCompatActivity() {
             datePickerDialog.show()
         }
 
+        barometerSlider.addOnChangeListener { slider, value, fromUser ->
+            // Responds to when slider's value is changed
+            barometer=value.toInt()
+        }
 
 
 
@@ -110,10 +112,9 @@ class WritingActivity : AppCompatActivity() {
 
             if(quoteOrNot){
                 if (diaryOrNot){
-                    if(PersonEditText.length()!=0 && eventText.length()!=0 && barometerEditText.length()!=0 && diaryEditText.length()!=0){
+                    if(PersonEditText.length()!=0 && eventText.length()!=0 &&  diaryEditText.length()!=0){
                         val personName=PersonEditText.text.toString()
                         val quote=eventText.text.toString()
-                        val barometer=barometerEditText.text.toString().toInt()
                         val event="「${quote}」by${personName}"
                         val diary=diaryEditText.text.toString()
                         save(event,day,good2,barometer,personName,quoteOrNot,quote,year,month,diaryOrNot,diary)
@@ -126,10 +127,9 @@ class WritingActivity : AppCompatActivity() {
                     }
 
                 } else{
-                    if(PersonEditText.length()!=0 && eventText.length()!=0 && barometerEditText.length()!=0 ){
+                    if(PersonEditText.length()!=0 && eventText.length()!=0 ){
                         val personName=PersonEditText.text.toString()
                         val quote=eventText.text.toString()
-                        val barometer=barometerEditText.text.toString().toInt()
                         val event="「${quote}」by${personName}"
                         save(event!!,day,good2,barometer!!,personName!!,quoteOrNot,quote!!,year,month,diaryOrNot,"")
                         savedIntent.putExtra("quote",quote)
@@ -143,9 +143,8 @@ class WritingActivity : AppCompatActivity() {
 
             }else {
                 if (diaryOrNot){
-                    if (eventText.length()!=0 && barometerEditText.length()!=0 && diaryEditText.length()!=0){
+                    if (eventText.length()!=0  && diaryEditText.length()!=0){
                         val event = eventText.text.toString()
-                        val barometer= barometerEditText.text.toString().toInt()
                         val diary = diaryEditText.text.toString()
                         save(event, day, good2, barometer,"",quoteOrNot,"",year,month,diaryOrNot,diary)
                         savedIntent.putExtra("good2",good2)
@@ -155,9 +154,8 @@ class WritingActivity : AppCompatActivity() {
                         Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_LONG).show()
                     }
                 }else{
-                    if (eventText.length()!=0 && barometerEditText.length()!=0){
+                    if (eventText.length()!=0 ){
                         val event = eventText.text.toString()
-                        val barometer= barometerEditText.text.toString().toInt()
                         save(event, day, good2, barometer,"",quoteOrNot,"",year,month,diaryOrNot,"")
                         savedIntent.putExtra("good2",good2)
                         savedIntent.putExtra("quoteOrNot",quoteOrNot)

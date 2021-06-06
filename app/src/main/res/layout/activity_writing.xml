@@ -8,6 +8,25 @@
         tools:context=".WritingActivity">
 
 
+    <com.google.android.material.switchmaterial.SwitchMaterial
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日記を追加する"
+            android:id="@+id/diarySwitch" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.7"/>
+    <com.google.android.material.slider.Slider
+
+
+            android:valueFrom="1"
+            android:valueTo="5"
+            android:stepSize="1" android:layout_width="200dp" android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/barometerTextView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:labelBehavior="floating" android:id="@+id/barometerSlider"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,16 +44,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="32dp"/>
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="3"
-            android:id="@+id/barometerEditText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            android:hint="1~5" app:layout_constraintHorizontal_bias="0.7" app:layout_constraintVertical_bias="0.5"/>
     <TextView
             android:text="嬉しさ度"
             android:layout_width="wrap_content"
@@ -125,13 +134,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintVertical_bias="0.8" android:hint="日記"/>
-    <Button
-            android:text="日記を追加する"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/diaryButton"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.6" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
