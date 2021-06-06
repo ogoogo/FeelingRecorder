@@ -25,9 +25,6 @@ class NewAppWidget : AppWidgetProvider() {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
 
-
-
-
     }
 
     override fun onEnabled(context: Context) {
@@ -39,40 +36,31 @@ class NewAppWidget : AppWidgetProvider() {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    override fun onReceive(context: Context?, intent: Intent?) {
-        super.onReceive(context, intent)
-        if (context == null || intent == null) return
-        Toast.makeText(context,"全て埋めてください！", Toast.LENGTH_LONG)
-
-
-
-
-
-
-        val widgetText = "今日もおつかれさまです"
-        val datum = realm.where(Memo::class.java).equalTo("good",true).findAll()
-        val goodData = datum[Random.nextInt(datum.size)]
-        val views = RemoteViews(context.packageName, R.layout.new_app_widget)
-        val date=goodData?.date
-        val content=goodData?.event
-        val quote=goodData?.quote
-        val person=goodData?.personName
-
-        if (goodData?.quoteOrNot==true){
-            views.setTextViewText(R.id.widgetContent,quote)
-            views.setTextViewText(R.id.widgetPerson,person+"より")
-        }else{
-            views.setTextViewText(R.id.widgetContent,content)
-        }
-        views.setTextViewText(R.id.widgetDate,date.toString()+"日")
-        views.setTextViewText(R.id.appwidget_text, widgetText)
-
     }
-}
+
 
 internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
 
     val views = RemoteViews(context.packageName, R.layout.new_app_widget)
+    val widgetText = "今日もおつかれさまです"
+    val datum = realm.where(Memo::class.java).equalTo("good",true).findAll()
+    val goodData = datum[Random.nextInt(datum.size)]
+    val date=goodData?.date
+    val year=goodData?.year
+    val month=goodData?.month
+    val content=goodData?.event
+    val quote=goodData?.quote
+    val person=goodData?.personName
+
+    if (goodData?.quoteOrNot==true){
+        views.setTextViewText(R.id.widgetContent,quote)
+        views.setTextViewText(R.id.widgetPerson,person+"より")
+    }else{
+        views.setTextViewText(R.id.widgetContent,content)
+    }
+    views.setTextViewText(R.id.widgetDate,"${year.toString()}.\n${month.toString()}.${date.toString()}")
+    views.setTextViewText(R.id.appwidget_text, widgetText)
+
 
 
     appWidgetManager.updateAppWidget(appWidgetId, views)

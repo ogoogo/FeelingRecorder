@@ -21,27 +21,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//アラームの設定
-        var alarmMgr: AlarmManager? = null
-        lateinit var alarmIntent: PendingIntent
-
-        alarmMgr = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmIntent = Intent(this, NewAppWidget::class.java).let { intent ->
-            PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        }
-        val calendar: Calendar = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()+5000
-    //        set(Calendar.HOUR_OF_DAY, 18)
-     //      set(Calendar.MINUTE, 33)
-        }
-        alarmMgr?.setInexactRepeating(
-            AlarmManager.RTC,
-            calendar.timeInMillis,
-            AlarmManager.INTERVAL_HALF_DAY,
-            alarmIntent
-        )
-
-//以上アラーム
 
 
 
