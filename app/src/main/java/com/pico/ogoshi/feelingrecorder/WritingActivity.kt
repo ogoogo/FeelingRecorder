@@ -22,6 +22,7 @@ class WritingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_writing)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
 
@@ -172,6 +173,12 @@ class WritingActivity : AppCompatActivity() {
 
 
 
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        val intent = Intent(application, ChoosingActivity::class.java)
+        startActivity(intent)
+        finish()
+        return super.onSupportNavigateUp()
     }
     override fun onDestroy() {
         super.onDestroy()

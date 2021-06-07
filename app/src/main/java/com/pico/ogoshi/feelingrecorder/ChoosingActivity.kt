@@ -13,6 +13,7 @@ class ChoosingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choosing)
         val recordIntent:Intent = Intent(this, WritingActivity::class.java)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         goodButton.setOnClickListener {
             startActivity(recordIntent)
@@ -27,5 +28,11 @@ class ChoosingActivity : AppCompatActivity() {
 
 
         }
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        val intent = Intent(application, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

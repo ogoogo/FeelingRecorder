@@ -12,6 +12,7 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val editIntent:Intent= Intent(this,EditActivity::class.java)
         diaryTextView.isVisible=false
@@ -42,5 +43,11 @@ class DetailActivity : AppCompatActivity() {
             editIntent.putExtra("idInQuestion",idInQuestion)
             startActivity(editIntent)
         }
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        val intent = Intent(application, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

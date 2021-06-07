@@ -20,8 +20,11 @@ class EditActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val editingId =intent.getStringExtra("idInQuestion")
+        val shf=getSharedPreferences("id", Context.MODE_PRIVATE)
+        shf.edit().putString("id",editingId).apply()
         val editingData = realm.where(Memo::class.java).equalTo("id",editingId).findFirst()
         val editedIntent = Intent(this,MainActivity::class.java)
 
@@ -145,6 +148,16 @@ class EditActivity : AppCompatActivity() {
 
 
     }
+    override fun onSupportNavigateUp(): Boolean {
+        val intent = Intent(application, DetailActivity::class.java)
+        val shf=getSharedPreferences("id", Context.MODE_PRIVATE)
+        val editingId=shf.getString("id","")
+        intent.putExtra("idInQuestion",editingId)
+        startActivity(intent)
+        finish()
+        return super.onSupportNavigateUp()
+    }
+
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         // InputMethodManager をキャストしながら取得
         val inputMethodManager: InputMethodManager =

@@ -19,14 +19,11 @@ class SavedActivity : AppCompatActivity() {
         val goodOrBad:Boolean= intent.getBooleanExtra("good2",true)
         val quoteOrNot:Boolean=intent.getBooleanExtra("quoteOrNot",true)
         val homeIntent: Intent =Intent(this,MainActivity::class.java)
-        val writingIntent:Intent=Intent(this,ChoosingActivity::class.java)
 
         backButton.setOnClickListener {
             startActivity(homeIntent)
         }
-        writingButton.setOnClickListener {
-            startActivity(writingIntent)
-        }
+
 
         if(goodOrBad==false) {
             val goodfeelings: RealmResults<Memo> = readGood()
