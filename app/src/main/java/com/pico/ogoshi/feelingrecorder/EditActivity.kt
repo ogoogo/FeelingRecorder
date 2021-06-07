@@ -1,5 +1,6 @@
 package com.pico.ogoshi.feelingrecorder
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
@@ -9,6 +10,7 @@ import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.view.isVisible
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_edit.*
@@ -138,11 +140,22 @@ class EditActivity : AppCompatActivity() {
         }
 
         deleteButton.setOnClickListener {
-            realm.executeTransaction {
-                val deletingData=realm.where(Memo::class.java).equalTo("id",editingId).findFirst()
-                deletingData?.deleteFromRealm()
-            }
-            startActivity(editedIntent)
+            AlertDialog.Builder(this) // FragmentではActivityを取得して生成
+                .setTitle("消去しますか？")
+                .setMessage("内容を元に戻すことはできません")
+                .setPositiveButton("消去", { dialog, which ->
+                    realm.executeTransaction {
+                        val deletingData=realm.where(Memo::class.java).equalTo("id",editingId).findFirst()
+                        deletingData?.deleteFromRealm()
+                    }
+                    startActivity(editedIntent)
+                })
+                .setNegativeButton("キャンセル", { dialog, which ->
+
+                })
+                .show()
+
+
         }
 
 

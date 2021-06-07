@@ -21,6 +21,7 @@ class Adapter(
         class ViewHolder(view: View):RecyclerView.ViewHolder(view){
             val dateText:TextView=view.findViewById(R.id.datetextView)
             val eventText:TextView=view.findViewById(R.id.eventtextView2)
+            val personText:TextView=view.findViewById(R.id.personTextView2)
         }
 
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -31,7 +32,12 @@ class Adapter(
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val event :Memo= eventList?.get(position)?:return
             holder.dateText.text="${event.year.toString()}年\n${event.month.toString()}月${event.date.toString()}日"
-            holder.eventText.text=event.event
+            if(event.quoteOrNot==true){
+                holder.eventText.text=event.quote
+            }else{
+                holder.eventText.text=event.event
+            }
+            holder.personText.text=event.personName
             holder.itemView.setOnClickListener{
                 listener.onItemClick(it,position,event)
             }

@@ -2,4 +2,7 @@
     <string name="app_name">FeelingRecorder</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="cancel">キャンセル</string>
+    <string name="accept">消去</string>
+
 </resources>

@@ -27,16 +27,29 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:labelBehavior="floating" android:id="@+id/barometerSlider"/>
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:ems="10"
-            android:id="@+id/eventText"
-            android:hint="セリフ" app:layout_constraintStart_toStartOf="parent"
+            app:counterEnabled="true"
+            app:counterMaxLength="15"
+            app:boxStrokeColor="@color/teal_200"
+            app:endIconTint="@color/teal_200"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.3"/>
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.3"
+    >
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:ems="15"
+                android:id="@+id/eventText"
+                android:hint="セリフ"                 android:maxLength="16"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
             android:text="保存"
             android:layout_width="wrap_content"
@@ -74,31 +87,38 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintVertical_bias="0.1"/>
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="人の名前"
-            android:ems="10"
-            android:id="@+id/PersonEditText" tools:layout_editor_absoluteY="126dp"
-            tools:layout_editor_absoluteX="102dp"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:counterEnabled="true"
+            app:counterMaxLength="10" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintVertical_bias="0.2"
+            app:boxStrokeColor="@color/teal_200"
+            app:endIconTint="@color/teal_200">
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="人の名前"
+                android:ems="10"
+                android:id="@+id/PersonEditText"/>
+    </com.google.android.material.textfield.TextInputLayout>
     <TextView
             android:text="に"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/textView2"
-            app:layout_constraintStart_toEndOf="@+id/PersonEditText"
-            app:layout_constraintBottom_toBottomOf="@+id/PersonEditText"
+            app:layout_constraintStart_toEndOf="@+id/textField"
+            app:layout_constraintBottom_toBottomOf="@+id/textField"
             android:textSize="16sp"/>
     <TextView
             android:text="と言われた！"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/textView3"
-            app:layout_constraintStart_toEndOf="@+id/eventText"
-            app:layout_constraintBottom_toBottomOf="@+id/eventText"
+            app:layout_constraintStart_toEndOf="@+id/textField3"
+            app:layout_constraintBottom_toBottomOf="@+id/textField3"
             android:textSize="16sp"/>
     <Button
             android:text="今日"
@@ -122,18 +142,29 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.15
 "/>
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:gravity="start|top"
-            android:ems="18"
-            android:id="@+id/diaryEditText"
-            app:layout_constraintStart_toStartOf="parent"
+            app:counterEnabled="true"
+            app:counterMaxLength="100"
+            app:boxStrokeColor="@color/teal_200"
+            app:endIconTint="@color/teal_200" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintVertical_bias="0.8" android:hint="日記"/>
+            app:layout_constraintVertical_bias="0.8"
+    >
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:gravity="start|top"
+                android:ems="18"
+                android:id="@+id/diaryEditText" android:hint="日記"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+android:elevation="8dp">
+
+
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -14,11 +17,22 @@
                 android:text="1日"
                 android:layout_width="match_parent"
                 android:layout_height="80dp" android:id="@+id/datetextView" android:layout_weight="3"
-                android:textSize="18sp" android:gravity="center_vertical"/>
-        <TextView
-                android:text="TextView"
+                android:textSize="18sp" android:gravity="center"
+                android:layout_gravity="center"/>
+        <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="80dp" android:id="@+id/eventtextView2" android:layout_weight="1"
-                android:textSize="18sp" android:gravity="center_vertical"/>
+                android:layout_height="80dp" android:layout_weight="1">
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/eventtextView2" android:layout_weight="1"
+                    android:textSize="18sp" android:gravity="bottom"/>
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/personTextView2" android:layout_weight="1"
+            android:gravity="top"/>
+        </LinearLayout>
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
