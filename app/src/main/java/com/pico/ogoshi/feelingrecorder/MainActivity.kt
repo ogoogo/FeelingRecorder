@@ -21,6 +21,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val shr = getSharedPreferences("beginner", Context.MODE_PRIVATE)
+        val editor=shr.edit()
+        var beginnerNumber=shr.getInt("number",0)
+        if (beginnerNumber==0){
+            okameTextMain.text="まずは右下のボタンを押して、\nイイコトをひとつ書き込んでみましょう！"
+        }else if(beginnerNumber==1){
+            okameTextMain.text="保存したイイコトはタップして編集することもできます！\nヤナコトは保存されないので気をつけてください！"
+        }else{
+            okameTextMain.text="今日もおつかれさまです！"
+        }
+
 
 
 

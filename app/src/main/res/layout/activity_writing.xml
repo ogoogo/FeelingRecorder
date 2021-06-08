@@ -39,6 +39,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.3"
+            android:hint="セリフ"
     >
         <EditText
                 android:layout_width="wrap_content"
@@ -46,7 +47,7 @@
                 android:inputType="text"
                 android:ems="15"
                 android:id="@+id/eventText"
-                android:hint="セリフ"                 android:maxLength="16"/>
+                                 android:maxLength="16"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,12 +98,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintVertical_bias="0.2"
             app:boxStrokeColor="@color/teal_200"
-            app:endIconTint="@color/teal_200">
+            app:endIconTint="@color/teal_200"
+            android:hint="人の名前">
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="人の名前"
+
                 android:ems="10"
                 android:id="@+id/PersonEditText"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -154,6 +156,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintVertical_bias="0.8"
+            android:hint="日記"
     >
         <EditText
                 android:layout_width="wrap_content"
@@ -161,7 +164,7 @@
                 android:inputType="textMultiLine"
                 android:gravity="start|top"
                 android:ems="18"
-                android:id="@+id/diaryEditText" android:hint="日記"/>
+                android:id="@+id/diaryEditText" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

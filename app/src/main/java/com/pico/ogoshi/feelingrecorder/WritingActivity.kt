@@ -49,15 +49,17 @@ class WritingActivity : AppCompatActivity() {
         otherButton.setOnClickListener {
             quoteOrNot=false
             PersonEditText.isVisible=false
+            textField.isVisible=false
             textView2.isVisible=false
-            eventText.hint="出来事"
+            textField3.setHint("出来事")
             textView3.isVisible=false
         }
         quoteButton.setOnClickListener {
             quoteOrNot=true
             PersonEditText.isVisible=true
+            textField.isVisible=true
             textView2.isVisible=true
-            eventText.hint="セリフ"
+            textField3.setHint("セリフ")
             textView3.isVisible=true
         }
 

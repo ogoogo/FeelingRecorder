@@ -1,5 +1,6 @@
 package com.pico.ogoshi.feelingrecorder
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,13 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val shr = getSharedPreferences("beginner", Context.MODE_PRIVATE)
+        val editor=shr.edit()
+        var beginnerNumber=shr.getInt("number",0)
+        if(beginnerNumber==1){
+            editor.putInt("number",2)
+            editor.apply()
+            }
 
         val editIntent:Intent= Intent(this,EditActivity::class.java)
         diaryTextView.isVisible=false

@@ -1,5 +1,6 @@
 package com.pico.ogoshi.feelingrecorder
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +20,14 @@ class SavedActivity : AppCompatActivity() {
         val goodOrBad:Boolean= intent.getBooleanExtra("good2",true)
         val quoteOrNot:Boolean=intent.getBooleanExtra("quoteOrNot",true)
         val homeIntent: Intent =Intent(this,MainActivity::class.java)
+
+        val shr = getSharedPreferences("beginner", Context.MODE_PRIVATE)
+        val editor=shr.edit()
+        var beginnerNumber=shr.getInt("number",0)
+        if(beginnerNumber==0){
+            editor.putInt("number",1)
+            editor.apply()
+        }
 
         backButton.setOnClickListener {
             startActivity(homeIntent)

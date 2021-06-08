@@ -54,7 +54,7 @@ internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManage
 
     if (goodData?.quoteOrNot==true){
         views.setTextViewText(R.id.widgetContent,quote)
-        views.setTextViewText(R.id.widgetPerson,person+"より")
+        views.setTextViewText(R.id.widgetPerson,person)
     }else{
         views.setTextViewText(R.id.widgetContent,content)
     }
