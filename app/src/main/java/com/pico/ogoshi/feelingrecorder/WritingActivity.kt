@@ -3,6 +3,7 @@ package com.pico.ogoshi.feelingrecorder
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
@@ -33,15 +34,18 @@ class WritingActivity : AppCompatActivity() {
 
         var diaryOrNot=false
         diaryEditText.isVisible=false
+        textField2.isVisible=false
 
         diarySwitch.setOnCheckedChangeListener { buttonView, isChecked
             // Responds to switch being checked/unchecked
             ->
             diaryOrNot=isChecked
             if (diaryOrNot){
+                textField2.isVisible=true
                 diaryEditText.isVisible=true
             }else{
                 diaryOrNot=false
+                textField2.isVisible=false
                 diaryEditText.isVisible=false
             }
         }
@@ -53,14 +57,19 @@ class WritingActivity : AppCompatActivity() {
             textView2.isVisible=false
             textField3.setHint("出来事")
             textView3.isVisible=false
+            otherButton.setBackgroundColor(Color.parseColor("#ffca28"))
+            quoteButton.setBackgroundColor(Color.parseColor("#c79a00"))
         }
         quoteButton.setOnClickListener {
             quoteOrNot=true
             PersonEditText.isVisible=true
             textField.isVisible=true
             textView2.isVisible=true
-            textField3.setHint("セリフ")
+            textField3.setHint("言われた言葉")
             textView3.isVisible=true
+            otherButton.setBackgroundColor(Color.parseColor("#c79a00"))
+            quoteButton.setBackgroundColor(Color.parseColor("#ffca28"))
+
         }
 
 

@@ -42,7 +42,7 @@ class NewAppWidget : AppWidgetProvider() {
 internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
 
     val views = RemoteViews(context.packageName, R.layout.new_app_widget)
-    val widgetText = "今日もおつかれさまです"
+    val widgetText = "今日のイイコト"
     val datum = realm.where(Memo::class.java).equalTo("good",true).findAll()
     val goodData = datum[Random.nextInt(datum.size)]
     val date=goodData?.date
