@@ -36,6 +36,7 @@ class SavedActivity : AppCompatActivity() {
 
         if(goodOrBad==false) {
             val goodfeelings: RealmResults<Memo> = readGood()
+            imageView3.setImageResource(R.drawable.kotori4)
             if (goodfeelings.isEmpty()){
                 messageTextView.text="おつかれさまです！\nきっと明日はイイコトありますよ！！"
 
@@ -50,9 +51,9 @@ class SavedActivity : AppCompatActivity() {
                 val goodQuoteOrNot = randomGood?.quoteOrNot
 
                 if(goodQuoteOrNot==false) {
-                    messageTextView.text = "${goodYear}年${goodMonth}月${goodDate}日には、こんなことがあったみたいですよ！\n${goodText}"
+                    messageTextView.text = "${goodYear}年${goodMonth}月${goodDate}日には\nこんなことがあったみたいですよ！\n${goodText}\n明日はきっとイイコトあります！"
                 }else if(goodQuoteOrNot==true){
-                    messageTextView.text = "${goodYear}年${goodMonth}月${goodDate}日には\n${goodPerson}に「\n${goodQUote}」と言われました!!"
+                    messageTextView.text = "${goodYear}年${goodMonth}月${goodDate}日には\n${goodPerson}に\n「\n${goodQUote}」\nと言われましたね！\n明日はきっとイイコトあります！"
                 }
 
             }
@@ -62,7 +63,7 @@ class SavedActivity : AppCompatActivity() {
                 val quote:String?=intent.getStringExtra("quote")
                 messageTextView.text="「$quote」\n嬉しいですね！！！"
             }else{
-                messageTextView.text = "よかったですね！！わたしまで嬉しくなってきました！"
+                messageTextView.text = "よかったですね！！\nわたしまで嬉しくなってきました！"
             }
         }
     }

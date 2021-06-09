@@ -47,6 +47,7 @@ class DetailActivity : AppCompatActivity() {
         if(dataInQuestion?.diaryOrNot==true){
             diaryTextView.isVisible=true
             diaryTextView.text=dataInQuestion?.diary
+            imageView4.isVisible=false
         }
 
         editButtonDetail.setOnClickListener {
