@@ -1,5 +1,6 @@
 package com.pico.ogoshi.feelingrecorder
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +24,7 @@ class DetailActivity : AppCompatActivity() {
             }
 
         val editIntent:Intent= Intent(this,EditActivity::class.java)
+        val editedIntent:Intent=Intent(this,MainActivity::class.java)
         diaryTextView.isVisible=false
 
         val idInQuestion:String?=intent.getStringExtra("idInQuestion")
@@ -51,6 +53,25 @@ class DetailActivity : AppCompatActivity() {
             editIntent.putExtra("idInQuestion",idInQuestion)
             startActivity(editIntent)
         }
+        deleteButton.setOnClickListener {
+            AlertDialog.Builder(this) // FragmentではActivityを取得して生成
+                .setTitle("消去しますか？")
+                .setMessage("内容を元に戻すことはできません")
+                .setPositiveButton("消去", { dialog, which ->
+                    realm.executeTransaction {
+                        val deletingData=realm.where(Memo::class.java).equalTo("id",idInQuestion).findFirst()
+                        deletingData?.deleteFromRealm()
+                    }
+                    startActivity(editedIntent)
+                })
+                .setNegativeButton("キャンセル", { dialog, which ->
+
+                })
+                .show()
+
+
+        }
+
     }
     override fun onSupportNavigateUp(): Boolean {
         val intent = Intent(application, MainActivity::class.java)

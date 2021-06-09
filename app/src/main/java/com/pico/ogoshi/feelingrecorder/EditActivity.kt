@@ -139,24 +139,6 @@ class EditActivity : AppCompatActivity() {
             startActivity(editedIntent)
         }
 
-        deleteButton.setOnClickListener {
-            AlertDialog.Builder(this) // FragmentではActivityを取得して生成
-                .setTitle("消去しますか？")
-                .setMessage("内容を元に戻すことはできません")
-                .setPositiveButton("消去", { dialog, which ->
-                    realm.executeTransaction {
-                        val deletingData=realm.where(Memo::class.java).equalTo("id",editingId).findFirst()
-                        deletingData?.deleteFromRealm()
-                    }
-                    startActivity(editedIntent)
-                })
-                .setNegativeButton("キャンセル", { dialog, which ->
-
-                })
-                .show()
-
-
-        }
 
 
 
