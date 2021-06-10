@@ -20,8 +20,33 @@ class NewAppWidget : AppWidgetProvider() {
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         // There may be multiple widgets active, so update all of them
         for (appWidgetId in appWidgetIds) {
+            val realm: Realm = Realm.getDefaultInstance()
 
-            updateAppWidget(context, appWidgetManager, appWidgetId)
+            val views = RemoteViews(context.packageName, R.layout.new_app_widget)
+
+            val datum = realm.where(Memo::class.java).equalTo("good", true).findAll()
+            val goodData = datum[Random.nextInt(datum.size)]
+            val date = goodData?.date
+            val year = goodData?.year
+            val month = goodData?.month
+            val content = goodData?.event
+            val quote = goodData?.quote
+            val person = goodData?.personName
+            val widgetText = "${month}月${date}日にあったイイコト"
+
+            if (goodData?.quoteOrNot == true) {
+                views.setTextViewText(R.id.widgetContent, quote)
+                views.setTextViewText(R.id.widgetPerson, person)
+            } else {
+                views.setTextViewText(R.id.widgetContent, content)
+            }
+            views.setTextViewText(R.id.appwidget_text, widgetText)
+
+
+
+            appWidgetManager.updateAppWidget(appWidgetId, views)
+
+
         }
 
     }
@@ -38,30 +63,3 @@ class NewAppWidget : AppWidgetProvider() {
 }
 
 
-internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-    val realm: Realm = Realm.getDefaultInstance()
-
-    val views = RemoteViews(context.packageName, R.layout.new_app_widget)
-
-    val datum = realm.where(Memo::class.java).equalTo("good", true).findAll()
-    val goodData = datum[Random.nextInt(datum.size)]
-    val date = goodData?.date
-    val year = goodData?.year
-    val month = goodData?.month
-    val content = goodData?.event
-    val quote = goodData?.quote
-    val person = goodData?.personName
-    val widgetText = "${month}月${date}日にあったイイコト"
-
-    if (goodData?.quoteOrNot == true) {
-        views.setTextViewText(R.id.widgetContent, quote)
-        views.setTextViewText(R.id.widgetPerson, person)
-    } else {
-        views.setTextViewText(R.id.widgetContent, content)
-    }
-    views.setTextViewText(R.id.appwidget_text, widgetText)
-
-
-
-    appWidgetManager.updateAppWidget(appWidgetId, views)
-}
