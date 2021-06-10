@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils.isEmpty
+import androidx.core.view.isVisible
 import io.realm.Realm
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.activity_saved.*
@@ -38,7 +39,7 @@ class SavedActivity : AppCompatActivity() {
             val goodfeelings: RealmResults<Memo> = readGood()
             imageView3.setImageResource(R.drawable.kotori4)
             if (goodfeelings.isEmpty()){
-                messageTextView.text="おつかれさまです！\nきっと明日はイイコトありますよ！！"
+                messageTextView1.text="おつかれさまです！\nきっと明日はイイコトありますよ！！"
 
             }else{
                 val randomGood = goodfeelings[Random.nextInt(goodfeelings.size)]
@@ -51,9 +52,13 @@ class SavedActivity : AppCompatActivity() {
                 val goodQuoteOrNot = randomGood?.quoteOrNot
 
                 if(goodQuoteOrNot==false) {
-                    messageTextView.text = "${goodYear}年${goodMonth}月${goodDate}日には\nこんなことがあったみたいですよ！\n${goodText}\n明日はきっとイイコトあります！"
+                    messageTextView1.text = "${goodYear}年${goodMonth}月${goodDate}日には\nこんなことがあったみたいですよ！"
+                    messageTextView2.text = goodText
+                    messageTextView3.text = "明日はきっとイイコトあります！"
                 }else if(goodQuoteOrNot==true){
-                    messageTextView.text = "${goodYear}年${goodMonth}月${goodDate}日には\n${goodPerson}に\n「\n${goodQUote}」\nと言われましたね！\n明日はきっとイイコトあります！"
+                    messageTextView1.text = "${goodYear}年${goodMonth}月${goodDate}日には\n${goodPerson}に"
+                    messageTextView2.text = "「${goodQUote}」"
+                    messageTextView3.text = "と言われました！\n明日はきっとイイコトあります！"
                 }
 
             }
@@ -61,9 +66,13 @@ class SavedActivity : AppCompatActivity() {
         }else{
             if(quoteOrNot) {
                 val quote:String?=intent.getStringExtra("quote")
-                messageTextView.text="「$quote」\n嬉しいですね！！！"
+                messageTextView2.text="「$quote」"
+                messageTextView3.text="嬉しいですね！！"
+                messageTextView1.isVisible=false
             }else{
-                messageTextView.text = "よかったですね！！\nわたしまで嬉しくなってきました！"
+                messageTextView1.text = "よかったですね！！\nわたしまで嬉しくなってきました！"
+                messageTextView2.isVisible=false
+                messageTextView3.isVisible=false
             }
         }
     }

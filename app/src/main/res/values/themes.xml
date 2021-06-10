@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
     <style name="ThemeOverlay.FeelingRecorder.AppWidgetContainer" parent="">
-        <item name="appWidgetBackgroundColor">@color/purple_500</item>
+        <item name="appWidgetBackgroundColor">#d7b7a3</item>
         <item name="appWidgetTextColor">@color/white</item>
     </style>
     <style name="AppTheme.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">

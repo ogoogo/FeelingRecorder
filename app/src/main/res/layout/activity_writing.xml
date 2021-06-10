@@ -15,7 +15,8 @@
             android:text="日記を追加する"
             android:id="@+id/diarySwitch" app:layout_constraintStart_toStartOf="@+id/barometerTextView"
             android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/barometerSlider" android:layout_marginTop="32dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/barometerSlider" android:layout_marginTop="32dp"
+            android:textColor="@color/purple_700"/>
     <com.google.android.material.slider.Slider
 
 
@@ -25,7 +26,7 @@
             app:labelBehavior="floating" android:id="@+id/barometerSlider"
             android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/barometerTextView"
-            app:layout_constraintTop_toTopOf="@+id/barometerTextView"/>
+            app:layout_constraintTop_toTopOf="@+id/barometerTextView" app:tickColor="#ffca28"/>
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField3"
             android:layout_width="wrap_content"
@@ -64,7 +65,7 @@
             android:layout_height="wrap_content" android:id="@+id/barometerTextView"
             app:layout_constraintStart_toStartOf="@+id/textField3"
             app:layout_constraintTop_toBottomOf="@+id/textField3" android:layout_marginTop="64dp"
-            android:textSize="18sp"/>
+            android:textSize="18sp" android:textColor="@color/purple_700"/>
     <com.google.android.material.button.MaterialButton
             android:backgroundTint="@color/teal_200"
             app:cornerRadius="0dp"
@@ -89,7 +90,7 @@
             android:layout_height="wrap_content" android:id="@+id/dateTextView"
             android:textSize="24sp" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/yesterdayButton" android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp" android:textColor="@color/purple_700"/>
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField"
             android:layout_width="wrap_content"
@@ -115,13 +116,13 @@
             android:layout_height="wrap_content" android:id="@+id/textView2"
             app:layout_constraintStart_toEndOf="@+id/textField"
             app:layout_constraintBottom_toBottomOf="@+id/textField"
-            android:textSize="18sp" android:layout_marginBottom="24dp"/>
+            android:textSize="18sp" android:layout_marginBottom="24dp" android:textColor="@color/purple_700"/>
     <TextView
             android:text="と言われた！"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/textView3"
             android:textSize="18sp" app:layout_constraintTop_toBottomOf="@+id/textField3"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/purple_700"/>
     <com.google.android.material.button.MaterialButton
             app:cornerRadius="16dp"
             android:text="今日"
@@ -130,7 +131,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0" app:layout_constraintEnd_toStartOf="@+id/yesterdayButton"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintTop_toBottomOf="@+id/quoteButton"/>
+            app:layout_constraintTop_toBottomOf="@+id/quoteButton" android:textSize="18sp"/>
     <com.google.android.material.button.MaterialButton
             app:cornerRadius="16dp"
             android:text="昨日"
@@ -138,7 +139,8 @@
             android:layout_height="wrap_content" android:id="@+id/yesterdayButton"
             app:layout_constraintStart_toEndOf="@+id/todayButton"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/otherDayButton"
-            app:layout_constraintHorizontal_chainStyle="packed" app:layout_constraintTop_toTopOf="@+id/todayButton"/>
+            app:layout_constraintHorizontal_chainStyle="packed" app:layout_constraintTop_toTopOf="@+id/todayButton"
+            android:textSize="18sp"/>
     <com.google.android.material.button.MaterialButton
             app:cornerRadius="16dp"
             android:layout_width="wrap_content"
@@ -147,7 +149,8 @@
             app:layout_constraintStart_toEndOf="@+id/yesterdayButton"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/yesterdayButton"/>
+            app:layout_constraintTop_toTopOf="@+id/yesterdayButton" android:gravity="center_horizontal"
+            app:iconGravity="textStart"/>
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField2"
             android:layout_width="wrap_content"

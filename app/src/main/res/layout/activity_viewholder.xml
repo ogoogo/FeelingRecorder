@@ -2,7 +2,7 @@
 
 <com.google.android.material.card.MaterialCardView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/card"
+        xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
@@ -13,12 +13,21 @@ android:elevation="8dp">
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <TextView
-                android:text="1日"
+        <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="80dp" android:id="@+id/datetextView" android:layout_weight="3"
-                android:textSize="18sp" android:gravity="center"
-                android:layout_gravity="center"/>
+                android:layout_height="match_parent" android:layout_weight="3">
+            <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" app:srcCompat="@drawable/star1" android:id="@+id/starImage"
+                    android:layout_weight="3" android:layout_gravity="center"/>
+            <TextView
+                    android:text="1日"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/datetextView" android:layout_weight="3"
+                    android:textSize="18sp" android:gravity="center"
+                    android:layout_gravity="center"/>
+        </LinearLayout>
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -27,7 +36,7 @@ android:elevation="8dp">
                     android:text="TextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/eventtextView2" android:layout_weight="1"
-                    android:textSize="18sp" android:gravity="bottom"/>
+                    android:textSize="18sp" android:gravity="bottom" android:textColor="@color/purple_700"/>
             <TextView
                     android:text="TextView"
                     android:layout_width="match_parent"
