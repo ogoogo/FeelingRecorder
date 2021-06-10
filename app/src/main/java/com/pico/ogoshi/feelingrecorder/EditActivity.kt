@@ -143,6 +143,7 @@ class EditActivity : AppCompatActivity() {
 
             }
             startActivity(editedIntent)
+            finish()
         }
 
 

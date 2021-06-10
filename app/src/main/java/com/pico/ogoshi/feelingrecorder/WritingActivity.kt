@@ -134,6 +134,7 @@ class WritingActivity : AppCompatActivity() {
                         savedIntent.putExtra("good2",good2)
                         savedIntent.putExtra("quoteOrNot",quoteOrNot)
                         startActivity(savedIntent)
+                        finish()
                     }else{
                         Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_SHORT).show()
                     }
@@ -148,6 +149,7 @@ class WritingActivity : AppCompatActivity() {
                         savedIntent.putExtra("good2",good2)
                         savedIntent.putExtra("quoteOrNot",quoteOrNot)
                         startActivity(savedIntent)
+                        finish()
                     }else{
                         Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_SHORT).show()
                     }
@@ -162,6 +164,7 @@ class WritingActivity : AppCompatActivity() {
                         savedIntent.putExtra("good2",good2)
                         savedIntent.putExtra("quoteOrNot",quoteOrNot)
                         startActivity(savedIntent)
+                        finish()
                     } else{
                         Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_LONG).show()
                     }
@@ -172,6 +175,7 @@ class WritingActivity : AppCompatActivity() {
                         savedIntent.putExtra("good2",good2)
                         savedIntent.putExtra("quoteOrNot",quoteOrNot)
                         startActivity(savedIntent)
+                        finish()
                     } else{
                         Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_LONG).show()
                     }

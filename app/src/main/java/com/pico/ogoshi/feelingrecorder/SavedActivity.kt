@@ -32,6 +32,7 @@ class SavedActivity : AppCompatActivity() {
 
         backButton.setOnClickListener {
             startActivity(homeIntent)
+            finish()
         }
 
 
