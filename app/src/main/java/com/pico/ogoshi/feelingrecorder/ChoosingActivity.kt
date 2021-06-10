@@ -16,8 +16,10 @@ class ChoosingActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         goodButton.setOnClickListener {
-            startActivity(recordIntent)
+            goodOrBad=true
             recordIntent.putExtra("good",goodOrBad)
+            startActivity(recordIntent)
+
         }
 
         badButton.setOnClickListener {

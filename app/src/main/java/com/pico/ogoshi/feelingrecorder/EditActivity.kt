@@ -52,14 +52,19 @@ class EditActivity : AppCompatActivity() {
 
         }
 
-        var diaryOrNot=false
-        textField2Edit.isVisible=false
+        var diaryOrNot=editingData?.diaryOrNot
+        if(diaryOrNot==false){
+            textField2Edit.isVisible=false
+        }else{
+            diaryEditTextEdit.setText(editingData?.diary)
+        }
+
 
         diarySwitchEdit.setOnCheckedChangeListener { buttonView, isChecked
             // Responds to switch being checked/unchecked
             ->
             diaryOrNot=isChecked
-            if (diaryOrNot){
+            if (diaryOrNot==true){
                 textField2Edit.isVisible=true
             }else{
                 diaryOrNot=false
