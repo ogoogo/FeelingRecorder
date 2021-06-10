@@ -1,7 +1,6 @@
 package com.pico.ogoshi.feelingrecorder
 
-import android.app.AlarmManager
-import android.app.PendingIntent
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -19,19 +18,30 @@ class MainActivity : AppCompatActivity() {
     private val realm:Realm by lazy {  Realm.getDefaultInstance()}
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_FeelingRecorder)
         setContentView(R.layout.activity_main)
 
         val shr = getSharedPreferences("beginner", Context.MODE_PRIVATE)
-        val editor=shr.edit()
         var beginnerNumber=shr.getInt("number",0)
+        val editor=shr.edit()
+        okameTextChoosing.text="今日もおつかれさまです！"
         if (beginnerNumber==0){
-            okameTextMain.text="まずは右下のボタンを押して、\nイイコトをひとつ書き込んでみましょう！"
+          //  editor.putInt("number",0).apply()
+            AlertDialog.Builder(this) // FragmentではActivityを取得して生成
+                .setTitle("はじめまして！")
+                .setMessage("まずは右下のボタンを押して、\nイイコトをひとつ書き込んでみましょう！")
+                .setPositiveButton("OK", { dialog, which ->
+                })
+                .show()
         }else if(beginnerNumber==1){
-            okameTextMain.text="保存したイイコトはタップして編集することもできます！\nヤナコトは保存されないので気をつけてください！"
-        }else{
-            okameTextMain.text="今日もおつかれさまです！"
+            editor.putInt("number",2)
+            AlertDialog.Builder(this) // FragmentではActivityを取得して生成
+                .setTitle("保存されましたか？")
+                .setMessage("保存したイイコトはタップして編集することもできます！\nヤナコトは保存されないので気をつけてください！")
+                .setPositiveButton("OK", { dialog, which ->
+                })
+                .show()
         }
-
 
 
 

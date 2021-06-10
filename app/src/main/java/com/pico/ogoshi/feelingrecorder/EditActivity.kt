@@ -48,21 +48,22 @@ class EditActivity : AppCompatActivity() {
             dateTextViewEdit.text="${year}年${month}月${day}日に"
             eventTextEdit.setText(editingData.event)
             barometerSliderEdit.setValue(editingData.barometer.toFloat())
+            textField3Edit.setHint("出来事")
 
         }
 
         var diaryOrNot=false
-        diaryEditTextEdit.isVisible=false
+        textField2Edit.isVisible=false
 
         diarySwitchEdit.setOnCheckedChangeListener { buttonView, isChecked
             // Responds to switch being checked/unchecked
             ->
             diaryOrNot=isChecked
             if (diaryOrNot){
-                diaryEditTextEdit.isVisible=true
+                textField2Edit.isVisible=true
             }else{
                 diaryOrNot=false
-                diaryEditTextEdit.isVisible=false
+                textField2Edit.isVisible=false
             }
         }
 

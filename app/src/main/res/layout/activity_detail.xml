@@ -39,26 +39,8 @@
                 android:id="@+id/eventTextDetail"
                 android:hint="セリフ" android:textSize="18sp"/>
     </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-            app:cardCornerRadius="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/barometerTextViewDetail"
-            app:layout_constraintBottom_toBottomOf="@+id/barometerTextViewDetail"
-            android:hint="1~5" app:layout_constraintVertical_bias="0.4"
-            app:layout_constraintStart_toEndOf="@+id/barometerTextViewDetail"
-            app:layout_constraintEnd_toEndOf="parent">
-        <TextView
-                android:padding="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="3"
-                android:id="@+id/barometerTextDetail"
-        />
-    </androidx.cardview.widget.CardView>
     <TextView
-            android:text="嬉しさ度"
+            android:text="イイコト度"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/barometerTextViewDetail"
             app:layout_constraintStart_toStartOf="@+id/cardView4"
@@ -70,9 +52,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.1" android:id="@+id/cardView2" android:layout_marginStart="16dp"
-            android:foregroundGravity="center">
+            android:id="@+id/cardView2" android:layout_marginStart="8dp"
+            android:foregroundGravity="center" android:layout_marginTop="32dp">
         <TextView
                 android:padding="16dp"
                 android:text="日付"
@@ -106,13 +87,18 @@
             android:textSize="16sp" app:layout_constraintTop_toTopOf="@+id/cardView3"
             app:layout_constraintStart_toEndOf="@+id/cardView3" android:layout_marginStart="16dp"/>
     <TextView
+            android:text="に"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView2Detail2"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/cardView2" app:layout_constraintTop_toTopOf="@+id/cardView2"
+            app:layout_constraintBottom_toBottomOf="@+id/cardView2" android:layout_marginStart="16dp"/>
+    <TextView
             android:text="と言われた！"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/textView3Detail"
-            app:layout_constraintStart_toEndOf="@+id/cardView4"
-            app:layout_constraintBottom_toBottomOf="@+id/cardView4"
-            android:textSize="18sp" app:layout_constraintTop_toTopOf="@+id/cardView4"
-            android:layout_marginStart="16dp"/>
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@+id/cardView4" app:layout_constraintEnd_toEndOf="parent"/>
     <androidx.cardview.widget.CardView
             app:cardCornerRadius="8dp"
             android:layout_width="wrap_content"
@@ -123,10 +109,11 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp" android:id="@+id/cardView">
         <TextView
-                android:padding="16dp"
+                android:ems="17"
+                android:padding="12dp"
                 android:text="TextView"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content" android:id="@+id/diaryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp" android:id="@+id/diaryTextView"
                 app:layout_constraintStart_toStartOf="parent" android:textSize="18sp" android:layout_gravity="center"/>
     </androidx.cardview.widget.CardView>
     <ImageView
@@ -134,6 +121,44 @@
             android:layout_height="300dp" app:srcCompat="@drawable/kotori1" android:id="@+id/imageView4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toTopOf="@+id/deleteButton"/>
+    <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp" app:srcCompat="@drawable/outline_star_24" android:id="@+id/star1"
+            app:tint="#ffca28"
+            app:layout_constraintEnd_toStartOf="@+id/star2"
+            app:layout_constraintStart_toEndOf="@+id/barometerTextViewDetail"
+            app:layout_constraintTop_toTopOf="@+id/barometerTextViewDetail"
+            app:layout_constraintBottom_toBottomOf="@+id/barometerTextViewDetail"
+            app:layout_constraintHorizontal_chainStyle="packed" android:layout_marginStart="16dp"/>
+    <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp" app:srcCompat="@drawable/outline_star_24" android:id="@+id/star2"
+            app:tint="#ffca28" app:layout_constraintStart_toEndOf="@+id/star1"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/star3"
+            app:layout_constraintTop_toTopOf="@+id/star1"/>
+    <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp" app:srcCompat="@drawable/outline_star_24" android:id="@+id/star3"
+            app:tint="#ffca28" app:layout_constraintStart_toEndOf="@+id/star2"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/star4"
+            app:layout_constraintTop_toTopOf="@+id/star2"/>
+    <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp" app:srcCompat="@drawable/outline_star_24" android:id="@+id/star4"
+            app:tint="#ffca28" app:layout_constraintStart_toEndOf="@+id/star3"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/star5"
+            app:layout_constraintTop_toTopOf="@+id/star3"/>
+    <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp" app:srcCompat="@drawable/outline_star_24" android:id="@+id/star5"
+            app:tint="#ffca28" app:layout_constraintStart_toEndOf="@+id/star4"
+            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/star4"/>
+    <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp" app:srcCompat="@drawable/kotori5" android:id="@+id/imageView10"
+            app:layout_constraintBottom_toTopOf="@+id/cardView" app:layout_constraintEnd_toEndOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="@+id/cardView"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

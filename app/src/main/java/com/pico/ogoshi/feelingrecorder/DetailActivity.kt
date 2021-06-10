@@ -15,13 +15,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val shr = getSharedPreferences("beginner", Context.MODE_PRIVATE)
-        val editor=shr.edit()
-        var beginnerNumber=shr.getInt("number",0)
-        if(beginnerNumber==1){
-            editor.putInt("number",2)
-            editor.apply()
-            }
+
 
         val editIntent:Intent= Intent(this,EditActivity::class.java)
         val editedIntent:Intent=Intent(this,MainActivity::class.java)
@@ -31,23 +25,25 @@ class DetailActivity : AppCompatActivity() {
         val dataInQuestion:Memo?=realm.where(Memo::class.java).equalTo("id",idInQuestion).findFirst()
 
         if(dataInQuestion?.quoteOrNot==true){
-            dateTextViewDetail.text="${dataInQuestion.year}年${dataInQuestion.month}月${dataInQuestion.date}日に"
+            dateTextViewDetail.text="${dataInQuestion.year}年${dataInQuestion.month}月${dataInQuestion.date}日"
             PersonEditTextDetail.text=dataInQuestion.personName
             eventTextDetail.text=dataInQuestion.quote
-            barometerTextDetail.text=dataInQuestion.barometer.toString()
+            star(dataInQuestion.barometer)
         }else if (dataInQuestion?.quoteOrNot==false){
             PersonEditTextDetail.isVisible=false
             textView2Detail.isVisible=false
             textView3Detail.isVisible=false
-            dateTextViewDetail.text="${dataInQuestion.year}年${dataInQuestion.month}月${dataInQuestion.date}日に"
+            dateTextViewDetail.text="${dataInQuestion.year}年${dataInQuestion.month}月${dataInQuestion.date}日"
             eventTextDetail.text=dataInQuestion.event
-            barometerTextDetail.text=dataInQuestion?.barometer.toString()
+            star(dataInQuestion.barometer)
         }
 
         if(dataInQuestion?.diaryOrNot==true){
             diaryTextView.isVisible=true
             diaryTextView.text=dataInQuestion?.diary
             imageView4.isVisible=false
+        }else{
+            imageView10.isVisible=false
         }
 
         editButtonDetail.setOnClickListener {
@@ -79,5 +75,22 @@ class DetailActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
         return super.onSupportNavigateUp()
+    }
+    fun star(number:Int){
+        if (number==4){
+            star5.isVisible=false
+        }else if(number==3){
+            star5.isVisible=false
+            star4.isVisible=false
+        }else if(number==2){
+            star5.isVisible=false
+            star4.isVisible=false
+            star3.isVisible=false
+        }else if(number==1){
+            star5.isVisible=false
+            star4.isVisible=false
+            star3.isVisible=false
+            star2.isVisible=false
+        }
     }
 }
