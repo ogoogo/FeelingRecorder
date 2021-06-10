@@ -126,43 +126,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toTopOf="@+id/deleteButton"/>
     <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp" app:srcCompat="@drawable/outline_star_24" android:id="@+id/star1"
-            app:tint="#ffca28"
-            app:layout_constraintEnd_toStartOf="@+id/star2"
-            app:layout_constraintStart_toEndOf="@+id/barometerTextViewDetail"
-            app:layout_constraintTop_toTopOf="@+id/barometerTextViewDetail"
-            app:layout_constraintBottom_toBottomOf="@+id/barometerTextViewDetail"
-            app:layout_constraintHorizontal_chainStyle="packed" android:layout_marginStart="16dp"/>
-    <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp" app:srcCompat="@drawable/outline_star_24" android:id="@+id/star2"
-            app:tint="#ffca28" app:layout_constraintStart_toEndOf="@+id/star1"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/star3"
-            app:layout_constraintTop_toTopOf="@+id/star1"/>
-    <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp" app:srcCompat="@drawable/outline_star_24" android:id="@+id/star3"
-            app:tint="#ffca28" app:layout_constraintStart_toEndOf="@+id/star2"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/star4"
-            app:layout_constraintTop_toTopOf="@+id/star2"/>
-    <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp" app:srcCompat="@drawable/outline_star_24" android:id="@+id/star4"
-            app:tint="#ffca28" app:layout_constraintStart_toEndOf="@+id/star3"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/star5"
-            app:layout_constraintTop_toTopOf="@+id/star3"/>
-    <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp" app:srcCompat="@drawable/outline_star_24" android:id="@+id/star5"
-            app:tint="#ffca28" app:layout_constraintStart_toEndOf="@+id/star4"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/star4"/>
-    <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp" app:srcCompat="@drawable/kotori5" android:id="@+id/imageView10"
             app:layout_constraintBottom_toTopOf="@+id/cardView" app:layout_constraintEnd_toEndOf="@+id/cardView"
             app:layout_constraintStart_toStartOf="@+id/cardView"/>
+    <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/ratingBar"
+            app:layout_constraintTop_toTopOf="@+id/barometerTextViewDetail"
+            app:layout_constraintBottom_toBottomOf="@+id/barometerTextViewDetail"
+            app:layout_constraintStart_toEndOf="@+id/barometerTextViewDetail" android:layout_marginStart="32dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -126,11 +126,11 @@
             app:cornerRadius="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/otherDayButtonEdit"
-            app:icon="@drawable/ic_baseline_calendar_today_24"
             app:layout_constraintStart_toEndOf="@+id/yesterdayButtonEdit"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/yesterdayButtonEdit"/>
+            app:layout_constraintTop_toTopOf="@+id/yesterdayButtonEdit"
+            android:foreground="@drawable/ic_baseline_calendar_today_24" android:foregroundGravity="center"/>
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField2Edit"
             android:layout_width="wrap_content"

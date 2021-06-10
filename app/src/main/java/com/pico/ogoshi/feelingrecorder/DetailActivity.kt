@@ -28,14 +28,14 @@ class DetailActivity : AppCompatActivity() {
             dateTextViewDetail.text="${dataInQuestion.year}年${dataInQuestion.month}月${dataInQuestion.date}日"
             PersonEditTextDetail.text=dataInQuestion.personName
             eventTextDetail.text=dataInQuestion.quote
-            star(dataInQuestion.barometer)
+            ratingBar.rating=dataInQuestion.barometer.toFloat()
         }else if (dataInQuestion?.quoteOrNot==false){
             PersonEditTextDetail.isVisible=false
             textView2Detail.isVisible=false
             textView3Detail.isVisible=false
             dateTextViewDetail.text="${dataInQuestion.year}年${dataInQuestion.month}月${dataInQuestion.date}日"
             eventTextDetail.text=dataInQuestion.event
-            star(dataInQuestion.barometer)
+            ratingBar.rating=dataInQuestion.barometer.toFloat()
         }
 
         if(dataInQuestion?.diaryOrNot==true){
@@ -77,21 +77,5 @@ class DetailActivity : AppCompatActivity() {
         finish()
         return super.onSupportNavigateUp()
     }
-    fun star(number:Int){
-        if (number==4){
-            star5.isVisible=false
-        }else if(number==3){
-            star5.isVisible=false
-            star4.isVisible=false
-        }else if(number==2){
-            star5.isVisible=false
-            star4.isVisible=false
-            star3.isVisible=false
-        }else if(number==1){
-            star5.isVisible=false
-            star4.isVisible=false
-            star3.isVisible=false
-            star2.isVisible=false
-        }
-    }
+
 }
