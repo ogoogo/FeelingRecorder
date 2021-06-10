@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                 })
                 .show()
         }else if(beginnerNumber==1){
-            editor.putInt("number",2)
+            editor.putInt("number",2).apply()
             AlertDialog.Builder(this) // FragmentではActivityを取得して生成
                 .setTitle("保存されましたか？")
                 .setMessage("保存したイイコトはタップして編集することもできます！\nヤナコトは表示されないので気をつけてください！")

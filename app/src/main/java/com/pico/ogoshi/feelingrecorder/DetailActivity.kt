@@ -49,6 +49,7 @@ class DetailActivity : AppCompatActivity() {
         editButtonDetail.setOnClickListener {
             editIntent.putExtra("idInQuestion",idInQuestion)
             startActivity(editIntent)
+            finish()
         }
         deleteButton.setOnClickListener {
             AlertDialog.Builder(this) // FragmentではActivityを取得して生成

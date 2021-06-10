@@ -19,6 +19,7 @@ class ChoosingActivity : AppCompatActivity() {
             goodOrBad=true
             recordIntent.putExtra("good",goodOrBad)
             startActivity(recordIntent)
+            finish()
 
         }
 
@@ -27,6 +28,7 @@ class ChoosingActivity : AppCompatActivity() {
 
             recordIntent.putExtra("good",goodOrBad)
             startActivity(recordIntent)
+            finish()
 
 
         }
