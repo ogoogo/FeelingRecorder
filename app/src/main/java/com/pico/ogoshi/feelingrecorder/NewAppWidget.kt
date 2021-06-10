@@ -13,9 +13,8 @@ import kotlin.random.Random
 /**
  * Implementation of App Widget functionality.
  */
-val realm:Realm= Realm.getDefaultInstance()
-class NewAppWidget : AppWidgetProvider() {
 
+class NewAppWidget : AppWidgetProvider() {
 
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
@@ -36,30 +35,31 @@ class NewAppWidget : AppWidgetProvider() {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    }
+}
 
 
 internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
+    val realm: Realm = Realm.getDefaultInstance()
 
     val views = RemoteViews(context.packageName, R.layout.new_app_widget)
 
-    val datum = realm.where(Memo::class.java).equalTo("good",true).findAll()
+    val datum = realm.where(Memo::class.java).equalTo("good", true).findAll()
     val goodData = datum[Random.nextInt(datum.size)]
-    val date=goodData?.date
-    val year=goodData?.year
-    val month=goodData?.month
-    val content=goodData?.event
-    val quote=goodData?.quote
-    val person=goodData?.personName
+    val date = goodData?.date
+    val year = goodData?.year
+    val month = goodData?.month
+    val content = goodData?.event
+    val quote = goodData?.quote
+    val person = goodData?.personName
     val widgetText = "${month}月${date}日にあったイイコト"
 
-    if (goodData?.quoteOrNot==true){
-        views.setTextViewText(R.id.widgetContent,quote)
-        views.setTextViewText(R.id.widgetPerson,person)
-    }else{
-        views.setTextViewText(R.id.widgetContent,content)
+    if (goodData?.quoteOrNot == true) {
+        views.setTextViewText(R.id.widgetContent, quote)
+        views.setTextViewText(R.id.widgetPerson, person)
+    } else {
+        views.setTextViewText(R.id.widgetContent, content)
     }
-   views.setTextViewText(R.id.appwidget_text, widgetText)
+    views.setTextViewText(R.id.appwidget_text, widgetText)
 
 
 

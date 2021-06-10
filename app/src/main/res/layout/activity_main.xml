@@ -26,16 +26,17 @@
             android:layout_height="100dp" app:srcCompat="@drawable/kotori5" android:id="@+id/imageView"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"/>
     <androidx.cardview.widget.CardView
+            app:cardElevation="0dp"
             app:cardCornerRadius="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/imageView" app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView">
+            app:layout_constraintTop_toTopOf="@+id/imageView" app:layout_constraintEnd_toStartOf="@+id/writeButton">
         <TextView
-                android:padding="16dp"
-                android:text="TextView"
+                android:padding="8dp"
+                android:text="今日もおつかれさまです！"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/okameTextChoosing" android:textSize="18sp"/>
+                android:layout_height="wrap_content" android:id="@+id/okameTextChoosing" android:textSize="16sp"/>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

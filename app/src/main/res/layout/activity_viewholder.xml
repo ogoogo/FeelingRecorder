@@ -16,6 +16,21 @@ android:elevation="8dp">
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
+                android:layout_height="80dp" android:layout_weight="1">
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/personTextView2" android:layout_weight="1"
+                    android:gravity="bottom"/>
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/eventtextView2" android:layout_weight="1"
+                    android:textSize="18sp" android:gravity="top" android:textColor="@color/purple_700"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent" android:layout_weight="3">
             <ImageView
                     android:layout_width="50dp"
@@ -25,23 +40,8 @@ android:elevation="8dp">
                     android:text="1日"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/datetextView" android:layout_weight="3"
-                    android:textSize="18sp" android:gravity="center"
+                    android:textSize="12sp" android:gravity="center"
                     android:layout_gravity="center"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="80dp" android:layout_weight="1">
-            <TextView
-                    android:text="TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/eventtextView2" android:layout_weight="1"
-                    android:textSize="18sp" android:gravity="bottom" android:textColor="@color/purple_700"/>
-            <TextView
-                    android:text="TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/personTextView2" android:layout_weight="1"
-            android:gravity="top"/>
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

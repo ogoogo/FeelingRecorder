@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         val shr = getSharedPreferences("beginner", Context.MODE_PRIVATE)
         var beginnerNumber=shr.getInt("number",0)
         val editor=shr.edit()
-        okameTextChoosing.text="今日もおつかれさまです！"
         if (beginnerNumber==0){
           //  editor.putInt("number",0).apply()
             AlertDialog.Builder(this) // FragmentではActivityを取得して生成

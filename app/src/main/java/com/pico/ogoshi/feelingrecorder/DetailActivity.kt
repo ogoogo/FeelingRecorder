@@ -72,8 +72,6 @@ class DetailActivity : AppCompatActivity() {
 
     }
     override fun onSupportNavigateUp(): Boolean {
-        val intent = Intent(application, MainActivity::class.java)
-        startActivity(intent)
         finish()
         return super.onSupportNavigateUp()
     }

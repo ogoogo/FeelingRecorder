@@ -135,7 +135,8 @@
             android:layout_height="wrap_content" android:id="@+id/ratingBar"
             app:layout_constraintTop_toTopOf="@+id/barometerTextViewDetail"
             app:layout_constraintBottom_toBottomOf="@+id/barometerTextViewDetail"
-            app:layout_constraintStart_toEndOf="@+id/barometerTextViewDetail" android:layout_marginStart="32dp"/>
+            app:layout_constraintStart_toEndOf="@+id/barometerTextViewDetail" android:layout_marginStart="32dp"
+            android:clickable="false" android:stepSize="1.0" android:isIndicator="true"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

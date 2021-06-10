@@ -33,7 +33,7 @@ class Adapter(
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val event :Memo= eventList?.get(position)?:return
-            holder.dateText.text="${event.month.toString()}月${event.date.toString()}日"
+            holder.dateText.text="${event.year}年${event.month.toString()}月${event.date.toString()}日"
 
             if(event.barometer==1){
                 holder.starImage.setImageResource(R.drawable.star1)

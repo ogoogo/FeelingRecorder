@@ -12,99 +12,99 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.android.material.slider.Slider
 import io.realm.Realm
+import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_writing.*
 import java.util.*
 
 class WritingActivity : AppCompatActivity() {
 
-    val realm:Realm = Realm.getDefaultInstance()
-    var quoteOrNot:Boolean=true
-    var barometer:Int=1
+    val realm: Realm = Realm.getDefaultInstance()
+    var quoteOrNot: Boolean = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_writing)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
-
-        val good2 :Boolean = intent.getBooleanExtra("good",true)
-        if (good2==false){
-            barometerTextView.text="ヤナコト度"
+        val good2: Boolean = intent.getBooleanExtra("good", true)
+        if (good2 == false) {
+            barometerTextView.text = "ヤナコト度"
+            saveButton.text = "ことりに食べさせる"
         }
 
-        var diaryOrNot=false
-        diaryEditText.isVisible=false
-        textField2.isVisible=false
+        var diaryOrNot = false
+        diaryEditText.isVisible = false
+        textField2.isVisible = false
 
         diarySwitch.setOnCheckedChangeListener { buttonView, isChecked
             // Responds to switch being checked/unchecked
             ->
-            diaryOrNot=isChecked
-            if (diaryOrNot){
-                textField2.isVisible=true
-                diaryEditText.isVisible=true
-            }else{
-                diaryOrNot=false
-                textField2.isVisible=false
-                diaryEditText.isVisible=false
+            diaryOrNot = isChecked
+            if (diaryOrNot) {
+                textField2.isVisible = true
+                diaryEditText.isVisible = true
+            } else {
+                diaryOrNot = false
+                textField2.isVisible = false
+                diaryEditText.isVisible = false
             }
         }
 
         otherButton.setOnClickListener {
-            quoteOrNot=false
-            PersonEditText.isVisible=false
-            textField.isVisible=false
-            textView2.isVisible=false
+            quoteOrNot = false
+            PersonEditText.isVisible = false
+            textField.isVisible = false
+            textView2.isVisible = false
             textField3.setHint("出来事")
-            textView3.isVisible=false
+            textView3.isVisible = false
             otherButton.setBackgroundColor(Color.parseColor("#ffca28"))
             quoteButton.setBackgroundColor(Color.parseColor("#c79a00"))
         }
         quoteButton.setOnClickListener {
-            quoteOrNot=true
-            PersonEditText.isVisible=true
-            textField.isVisible=true
-            textView2.isVisible=true
+            quoteOrNot = true
+            PersonEditText.isVisible = true
+            textField.isVisible = true
+            textView2.isVisible = true
             textField3.setHint("言われた言葉")
-            textView3.isVisible=true
+            textView3.isVisible = true
             otherButton.setBackgroundColor(Color.parseColor("#c79a00"))
             quoteButton.setBackgroundColor(Color.parseColor("#ffca28"))
 
         }
 
 
-
-        val savedIntent:Intent = Intent(this, SavedActivity::class.java)
+        val savedIntent: Intent = Intent(this, SavedActivity::class.java)
 
         val c = Calendar.getInstance()
         var year = c.get(Calendar.YEAR)
-        var month = c.get(Calendar.MONTH)+1
-        var  day = c.get(Calendar.DAY_OF_MONTH)
-        dateTextView.text="${year}年${month}月${day}日に"
+        var month = c.get(Calendar.MONTH) + 1
+        var day = c.get(Calendar.DAY_OF_MONTH)
+        dateTextView.text = "${year}年${month}月${day}日に"
 
 
         todayButton.setOnClickListener {
             year = c.get(Calendar.YEAR)
-            month = c.get(Calendar.MONTH)+1
+            month = c.get(Calendar.MONTH) + 1
             day = c.get(Calendar.DAY_OF_MONTH)
-            dateTextView.text="${year}年${month}月${day}日に"
+            dateTextView.text = "${year}年${month}月${day}日に"
         }
 
         yesterdayButton.setOnClickListener {
             year = c.get(Calendar.YEAR)
-            month = c.get(Calendar.MONTH)+1
-            day = c.get(Calendar.DAY_OF_MONTH)-1
-            dateTextView.text="${year}年${month}月${day}日に"
+            month = c.get(Calendar.MONTH) + 1
+            day = c.get(Calendar.DAY_OF_MONTH) - 1
+            dateTextView.text = "${year}年${month}月${day}日に"
         }
 
         otherDayButton.setOnClickListener {
-            val datePickerDialog= DatePickerDialog(
+            val datePickerDialog = DatePickerDialog(
                 this,
                 DatePickerDialog.OnDateSetListener { view, y, m, d ->
-                    year=y
-                    month=m+1
-                    day=d
-                    dateTextView.text="${year}年${month}月${day}日に"
+                    year = y
+                    month = m + 1
+                    day = d
+                    dateTextView.text = "${year}年${month}月${day}日に"
                 },
                 c.get(Calendar.YEAR),
                 c.get(Calendar.MONTH),
@@ -113,71 +113,92 @@ class WritingActivity : AppCompatActivity() {
             datePickerDialog.show()
         }
 
-        barometerSlider.addOnChangeListener { slider, value, fromUser ->
-            // Responds to when slider's value is changed
-            barometer=value.toInt()
-        }
+        val barometer = starBar.getRating().toInt()
 
 
 
         saveButton.setOnClickListener {
 
-            if(quoteOrNot){
-                if (diaryOrNot){
-                    if(PersonEditText.length()!=0 && eventText.length()!=0 &&  diaryEditText.length()!=0){
-                        val personName=PersonEditText.text.toString()
-                        val quote=eventText.text.toString()
-                        val event="「${quote}」by${personName}"
-                        val diary=diaryEditText.text.toString()
-                        save(event,day,good2,barometer,personName,quoteOrNot,quote,year,month,diaryOrNot,diary)
-                        savedIntent.putExtra("quote",quote)
-                        savedIntent.putExtra("good2",good2)
-                        savedIntent.putExtra("quoteOrNot",quoteOrNot)
+            if (quoteOrNot) {
+                if (diaryOrNot) {
+                    if (PersonEditText.length() != 0 && eventText.length() != 0 && diaryEditText.length() != 0) {
+                        val personName = PersonEditText.text.toString()
+                        val quote = eventText.text.toString()
+                        val event = "「${quote}」by${personName}"
+                        val diary = diaryEditText.text.toString()
+                        save(
+                            event,
+                            day,
+                            good2,
+                            barometer,
+                            personName,
+                            quoteOrNot,
+                            quote,
+                            year,
+                            month,
+                            diaryOrNot,
+                            diary
+                        )
+                        savedIntent.putExtra("quote", quote)
+                        savedIntent.putExtra("good2", good2)
+                        savedIntent.putExtra("quoteOrNot", quoteOrNot)
                         startActivity(savedIntent)
                         finish()
-                    }else{
-                        Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(applicationContext, "全て埋めてください！", Toast.LENGTH_SHORT).show()
                     }
 
-                } else{
-                    if(PersonEditText.length()!=0 && eventText.length()!=0 ){
-                        val personName=PersonEditText.text.toString()
-                        val quote=eventText.text.toString()
-                        val event="「${quote}」by${personName}"
-                        save(event!!,day,good2,barometer!!,personName!!,quoteOrNot,quote!!,year,month,diaryOrNot,"")
-                        savedIntent.putExtra("quote",quote)
-                        savedIntent.putExtra("good2",good2)
-                        savedIntent.putExtra("quoteOrNot",quoteOrNot)
+                } else {
+                    if (PersonEditText.length() != 0 && eventText.length() != 0) {
+                        val personName = PersonEditText.text.toString()
+                        val quote = eventText.text.toString()
+                        val event = "「${quote}」by${personName}"
+                        save(
+                            event!!,
+                            day,
+                            good2,
+                            barometer!!,
+                            personName!!,
+                            quoteOrNot,
+                            quote!!,
+                            year,
+                            month,
+                            diaryOrNot,
+                            ""
+                        )
+                        savedIntent.putExtra("quote", quote)
+                        savedIntent.putExtra("good2", good2)
+                        savedIntent.putExtra("quoteOrNot", quoteOrNot)
                         startActivity(savedIntent)
                         finish()
-                    }else{
-                        Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(applicationContext, "全て埋めてください！", Toast.LENGTH_SHORT).show()
                     }
                 }
 
-            }else {
-                if (diaryOrNot){
-                    if (eventText.length()!=0  && diaryEditText.length()!=0){
+            } else {
+                if (diaryOrNot) {
+                    if (eventText.length() != 0 && diaryEditText.length() != 0) {
                         val event = eventText.text.toString()
                         val diary = diaryEditText.text.toString()
-                        save(event, day, good2, barometer,"",quoteOrNot,"",year,month,diaryOrNot,diary)
-                        savedIntent.putExtra("good2",good2)
-                        savedIntent.putExtra("quoteOrNot",quoteOrNot)
+                        save(event, day, good2, barometer, "", quoteOrNot, "", year, month, diaryOrNot, diary)
+                        savedIntent.putExtra("good2", good2)
+                        savedIntent.putExtra("quoteOrNot", quoteOrNot)
                         startActivity(savedIntent)
                         finish()
-                    } else{
-                        Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(applicationContext, "全て埋めてください！", Toast.LENGTH_LONG).show()
                     }
-                }else{
-                    if (eventText.length()!=0 ){
+                } else {
+                    if (eventText.length() != 0) {
                         val event = eventText.text.toString()
-                        save(event, day, good2, barometer,"",quoteOrNot,"",year,month,diaryOrNot,"")
-                        savedIntent.putExtra("good2",good2)
-                        savedIntent.putExtra("quoteOrNot",quoteOrNot)
+                        save(event, day, good2, barometer, "", quoteOrNot, "", year, month, diaryOrNot, "")
+                        savedIntent.putExtra("good2", good2)
+                        savedIntent.putExtra("quoteOrNot", quoteOrNot)
                         startActivity(savedIntent)
                         finish()
-                    } else{
-                        Toast.makeText(applicationContext,"全て埋めてください！",Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(applicationContext, "全て埋めてください！", Toast.LENGTH_LONG).show()
                     }
                 }
 
@@ -187,18 +208,20 @@ class WritingActivity : AppCompatActivity() {
         }
 
 
-
     }
+
     override fun onSupportNavigateUp(): Boolean {
         val intent = Intent(application, ChoosingActivity::class.java)
         startActivity(intent)
         finish()
         return super.onSupportNavigateUp()
     }
+
     override fun onDestroy() {
         super.onDestroy()
         realm.close()
     }
+
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         // InputMethodManager をキャストしながら取得
         val inputMethodManager: InputMethodManager =
@@ -222,30 +245,32 @@ class WritingActivity : AppCompatActivity() {
         Log.d("dialog",diary)
     }*/
 
-    fun save(event:String,
-             date:Int,
-             good:Boolean,
-             barometer:Int,
-             personName:String,
-             quoteOrNot:Boolean,
-             quote:String,
-             year:Int,
-             month:Int,
-             diaryOrNot:Boolean,
-             diary:String){
-        realm.executeTransaction{
-           val newMemo:Memo=it.createObject(Memo::class.java,UUID.randomUUID().toString())
-            newMemo.event=event
-            newMemo.date=date
-            newMemo.good=good
-            newMemo.barometer=barometer
-            newMemo.personName=personName
-            newMemo.quoteOrNot=quoteOrNot
-            newMemo.quote=quote
-            newMemo.year=year
-            newMemo.month=month
-            newMemo.diaryOrNot=diaryOrNot
-            newMemo.diary=diary
+    fun save(
+        event: String,
+        date: Int,
+        good: Boolean,
+        barometer: Int,
+        personName: String,
+        quoteOrNot: Boolean,
+        quote: String,
+        year: Int,
+        month: Int,
+        diaryOrNot: Boolean,
+        diary: String
+    ) {
+        realm.executeTransaction {
+            val newMemo: Memo = it.createObject(Memo::class.java, UUID.randomUUID().toString())
+            newMemo.event = event
+            newMemo.date = date
+            newMemo.good = good
+            newMemo.barometer = barometer
+            newMemo.personName = personName
+            newMemo.quoteOrNot = quoteOrNot
+            newMemo.quote = quote
+            newMemo.year = year
+            newMemo.month = month
+            newMemo.diaryOrNot = diaryOrNot
+            newMemo.diary = diary
 
         }
     }
