@@ -6,11 +6,14 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.android.material.slider.Slider
+import com.google.android.material.tabs.TabLayout
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_writing.*
@@ -25,6 +28,40 @@ class WritingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_writing)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                // Handle tab select
+                val tagText = tab.text
+                if (tagText == "出来事") {
+                    quoteOrNot = false
+                    PersonEditText.isVisible = false
+                    textField.isVisible = false
+                    textView2.isVisible = false
+                    textField3.setHint("出来事")
+                    textView3.isVisible = false
+                }
+                if (tagText == "言われたこと") {
+                    quoteOrNot = true
+                    PersonEditText.isVisible = true
+                    textField.isVisible = true
+                    textView2.isVisible = true
+                    textField3.setHint("言われた言葉")
+                    textView3.isVisible = true
+
+                }
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                // Handle tab reselect
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                // Handle tab unselect
+            }
+        })
 
 
         val good2: Boolean = intent.getBooleanExtra("good", true)
@@ -44,33 +81,19 @@ class WritingActivity : AppCompatActivity() {
             if (diaryOrNot) {
                 textField2.isVisible = true
                 diaryEditText.isVisible = true
+                if (diaryEditText.length() == 0) {
+                    saveButton.isEnabled = false
+                    saveButton.setBackgroundColor(Color.parseColor("#c79a00"))
+                }
             } else {
                 diaryOrNot = false
                 textField2.isVisible = false
                 diaryEditText.isVisible = false
+                if(diaryEditText.length()==0){
+                    saveButton.isEnabled=true
+                    saveButton.setBackgroundColor(Color.parseColor("#ffca28"))
+                }
             }
-        }
-
-        otherButton.setOnClickListener {
-            quoteOrNot = false
-            PersonEditText.isVisible = false
-            textField.isVisible = false
-            textView2.isVisible = false
-            textField3.setHint("出来事")
-            textView3.isVisible = false
-            otherButton.setBackgroundColor(Color.parseColor("#ffca28"))
-            quoteButton.setBackgroundColor(Color.parseColor("#c79a00"))
-        }
-        quoteButton.setOnClickListener {
-            quoteOrNot = true
-            PersonEditText.isVisible = true
-            textField.isVisible = true
-            textView2.isVisible = true
-            textField3.setHint("言われた言葉")
-            textView3.isVisible = true
-            otherButton.setBackgroundColor(Color.parseColor("#c79a00"))
-            quoteButton.setBackgroundColor(Color.parseColor("#ffca28"))
-
         }
 
 
@@ -113,93 +136,132 @@ class WritingActivity : AppCompatActivity() {
             datePickerDialog.show()
         }
 
-        val barometer = starBar.getRating().toInt()
+        saveButton.isEnabled = false
+        saveButton.setBackgroundColor(Color.parseColor("#c79a00"))
+
+        PersonEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                checker(diaryOrNot, quoteOrNot)
+
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //処理
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //処理
+            }
+        })
+        eventText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                checker(diaryOrNot, quoteOrNot)
+
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //処理
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //処理
+            }
+        })
+        diaryEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                checker(diaryOrNot, quoteOrNot)
+
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //処理
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //処理
+            }
+        })
+
+
 
 
 
         saveButton.setOnClickListener {
+            val barometer = starBar.getRating().toInt()
 
             if (quoteOrNot) {
                 if (diaryOrNot) {
-                    if (PersonEditText.length() != 0 && eventText.length() != 0 && diaryEditText.length() != 0) {
-                        val personName = PersonEditText.text.toString()
-                        val quote = eventText.text.toString()
-                        val event = "「${quote}」by${personName}"
-                        val diary = diaryEditText.text.toString()
-                        save(
-                            event,
-                            day,
-                            good2,
-                            barometer,
-                            personName,
-                            quoteOrNot,
-                            quote,
-                            year,
-                            month,
-                            diaryOrNot,
-                            diary
-                        )
-                        savedIntent.putExtra("quote", quote)
-                        savedIntent.putExtra("good2", good2)
-                        savedIntent.putExtra("quoteOrNot", quoteOrNot)
-                        startActivity(savedIntent)
-                        finish()
-                    } else {
-                        Toast.makeText(applicationContext, "全て埋めてください！", Toast.LENGTH_SHORT).show()
-                    }
+
+                    val personName = PersonEditText.text.toString()
+                    val quote = eventText.text.toString()
+                    val event = "「${quote}」by${personName}"
+                    val diary = diaryEditText.text.toString()
+                    save(
+                        event,
+                        day,
+                        good2,
+                        barometer,
+                        personName,
+                        quoteOrNot,
+                        quote,
+                        year,
+                        month,
+                        diaryOrNot,
+                        diary
+                    )
+                    savedIntent.putExtra("quote", quote)
+                    savedIntent.putExtra("good2", good2)
+                    savedIntent.putExtra("quoteOrNot", quoteOrNot)
+                    startActivity(savedIntent)
+                    finish()
+
 
                 } else {
-                    if (PersonEditText.length() != 0 && eventText.length() != 0) {
-                        val personName = PersonEditText.text.toString()
-                        val quote = eventText.text.toString()
-                        val event = "「${quote}」by${personName}"
-                        save(
-                            event!!,
-                            day,
-                            good2,
-                            barometer!!,
-                            personName!!,
-                            quoteOrNot,
-                            quote!!,
-                            year,
-                            month,
-                            diaryOrNot,
-                            ""
-                        )
-                        savedIntent.putExtra("quote", quote)
-                        savedIntent.putExtra("good2", good2)
-                        savedIntent.putExtra("quoteOrNot", quoteOrNot)
-                        startActivity(savedIntent)
-                        finish()
-                    } else {
-                        Toast.makeText(applicationContext, "全て埋めてください！", Toast.LENGTH_SHORT).show()
-                    }
+
+                    val personName = PersonEditText.text.toString()
+                    val quote = eventText.text.toString()
+                    val event = "「${quote}」by${personName}"
+                    save(
+                        event!!,
+                        day,
+                        good2,
+                        barometer!!,
+                        personName!!,
+                        quoteOrNot,
+                        quote!!,
+                        year,
+                        month,
+                        diaryOrNot,
+                        ""
+                    )
+                    savedIntent.putExtra("quote", quote)
+                    savedIntent.putExtra("good2", good2)
+                    savedIntent.putExtra("quoteOrNot", quoteOrNot)
+                    startActivity(savedIntent)
+                    finish()
+
                 }
 
             } else {
                 if (diaryOrNot) {
-                    if (eventText.length() != 0 && diaryEditText.length() != 0) {
-                        val event = eventText.text.toString()
-                        val diary = diaryEditText.text.toString()
-                        save(event, day, good2, barometer, "", quoteOrNot, "", year, month, diaryOrNot, diary)
-                        savedIntent.putExtra("good2", good2)
-                        savedIntent.putExtra("quoteOrNot", quoteOrNot)
-                        startActivity(savedIntent)
-                        finish()
-                    } else {
-                        Toast.makeText(applicationContext, "全て埋めてください！", Toast.LENGTH_LONG).show()
-                    }
+
+                    val event = eventText.text.toString()
+                    val diary = diaryEditText.text.toString()
+                    save(event, day, good2, barometer, "", quoteOrNot, "", year, month, diaryOrNot, diary)
+                    savedIntent.putExtra("good2", good2)
+                    savedIntent.putExtra("quoteOrNot", quoteOrNot)
+                    startActivity(savedIntent)
+                    finish()
+
                 } else {
-                    if (eventText.length() != 0) {
-                        val event = eventText.text.toString()
-                        save(event, day, good2, barometer, "", quoteOrNot, "", year, month, diaryOrNot, "")
-                        savedIntent.putExtra("good2", good2)
-                        savedIntent.putExtra("quoteOrNot", quoteOrNot)
-                        startActivity(savedIntent)
-                        finish()
-                    } else {
-                        Toast.makeText(applicationContext, "全て埋めてください！", Toast.LENGTH_LONG).show()
-                    }
+
+                    val event = eventText.text.toString()
+                    save(event, day, good2, barometer, "", quoteOrNot, "", year, month, diaryOrNot, "")
+                    savedIntent.putExtra("good2", good2)
+                    savedIntent.putExtra("quoteOrNot", quoteOrNot)
+                    startActivity(savedIntent)
+                    finish()
+
                 }
 
 
@@ -274,4 +336,44 @@ class WritingActivity : AppCompatActivity() {
 
         }
     }
+
+    fun checker(diary: Boolean, quote: Boolean) {
+        if (diary && quote) {
+            if (PersonEditText.length() != 0 && eventText.length() != 0 && diaryEditText.length() != 0) {
+                saveButton.isEnabled = true
+                saveButton.setBackgroundColor(Color.parseColor("#ffca28"))
+            } else {
+                saveButton.isEnabled = false
+                saveButton.setBackgroundColor(Color.parseColor("#c79a00"))
+            }
+        }
+        if (diary && quote == false) {
+            if (eventText.length() != 0 && diaryEditText.length() != 0) {
+                saveButton.isEnabled = true
+                saveButton.setBackgroundColor(Color.parseColor("#ffca28"))
+            } else {
+                saveButton.isEnabled = false
+                saveButton.setBackgroundColor(Color.parseColor("#c79a00"))
+            }
+        }
+        if (diary == false && quote) {
+            if (PersonEditText.length() != 0 && eventText.length() != 0) {
+                saveButton.isEnabled = true
+                saveButton.setBackgroundColor(Color.parseColor("#ffca28"))
+            } else {
+                saveButton.isEnabled = false
+                saveButton.setBackgroundColor(Color.parseColor("#c79a00"))
+            }
+        }
+        if (diary == false && quote == false) {
+            if (eventText.length() != 0) {
+                saveButton.isEnabled = true
+                saveButton.setBackgroundColor(Color.parseColor("#ffca28"))
+            } else {
+                saveButton.isEnabled = false
+                saveButton.setBackgroundColor(Color.parseColor("#c79a00"))
+            }
+        }
+    }
+
 }

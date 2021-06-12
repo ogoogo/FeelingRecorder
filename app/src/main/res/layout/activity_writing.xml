@@ -7,6 +7,26 @@
         android:layout_height="match_parent"
         tools:context=".WritingActivity" app:layout_constraintHorizontal_chainStyle="packed"
         android:background="#d7b7a3">
+    <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/tabLayout" app:tabIndicatorColor="#ffca28" app:tabTextColor="#FFFFFF"
+            android:background="#985e49" app:tabSelectedTextColor="#ffca28">
+        <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="言われたこと"
+                android:id="@+id/quoteTab" android:tag="1"/>
+
+        <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="出来事"
+                android:id="@+id/otherTab" android:tag="2"/>
+
+
+    </com.google.android.material.tabs.TabLayout>
 
 
     <com.google.android.material.switchmaterial.SwitchMaterial
@@ -56,24 +76,7 @@
             app:layout_constraintStart_toStartOf="@+id/textField3"
             app:layout_constraintTop_toBottomOf="@+id/textField3" android:layout_marginTop="64dp"
             android:textSize="18sp" android:textColor="@color/purple_700"/>
-    <com.google.android.material.button.MaterialButton
-            android:backgroundTint="@color/teal_200"
-            app:cornerRadius="0dp"
-            android:text="言われたこと"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" android:id="@+id/quoteButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/otherButton"
-            app:layout_constraintTop_toTopOf="parent" android:textSize="18sp"/>
-    <com.google.android.material.button.MaterialButton
-            android:backgroundTint="@color/teal_700"
-            app:cornerRadius="0dp"
-            android:text="出来事"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" android:id="@+id/otherButton"
-            app:layout_constraintStart_toEndOf="@+id/quoteButton" app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintTop_toTopOf="@+id/quoteButton" app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="18sp"/>
+
     <TextView
             android:text="日付"
             android:layout_width="wrap_content"
@@ -121,8 +124,9 @@
             android:layout_height="wrap_content" android:id="@+id/todayButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0" app:layout_constraintEnd_toStartOf="@+id/yesterdayButton"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintTop_toBottomOf="@+id/quoteButton" android:textSize="18sp"/>
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout" android:textSize="18sp"
+            android:layout_marginEnd="16dp"/>
     <com.google.android.material.button.MaterialButton
             app:cornerRadius="16dp"
             android:text="昨日"
@@ -131,7 +135,7 @@
             app:layout_constraintStart_toEndOf="@+id/todayButton"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/otherDayButton"
             app:layout_constraintHorizontal_chainStyle="packed" app:layout_constraintTop_toTopOf="@+id/todayButton"
-            android:textSize="18sp"/>
+            android:textSize="18sp" android:layout_marginEnd="16dp"/>
     <com.google.android.material.button.MaterialButton
             app:cornerRadius="16dp"
             android:layout_width="wrap_content"

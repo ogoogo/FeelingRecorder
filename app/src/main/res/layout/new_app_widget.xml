@@ -6,7 +6,7 @@
                 android:layout_height="100dp"
                 android:padding="@dimen/widget_margin">
     <LinearLayout
-            android:padding="4dp"
+            android:padding="8dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
