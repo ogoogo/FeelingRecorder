@@ -10,8 +10,8 @@
   <color name="light_blue_200">#FFFFFF</color>
   <color name="light_blue_900">#FFFFFF</color>
   <color name="light_blue_50">#FFFFFF</color>
-  <color name="text_1">#673321</color>
-  <color name="whitegray">#FFFFFF</color>
-  <color name="widgetcolor">#d7b7a3</color>
-  <color name="background">#d7b7a3</color>
+  <color name="text_1">#c79a00</color>
+  <color name="whitegray">#303030</color>
+  <color name="widgetcolor">#303030</color>
+
 </resources>

@@ -27,7 +27,7 @@
                     android:text="TextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/eventtextView2" android:layout_weight="1"
-                    android:textSize="18sp" android:gravity="top" android:textColor="@color/purple_700"/>
+                    android:textSize="18sp" android:gravity="top" android:textColor="@color/text_1"/>
         </LinearLayout>
         <LinearLayout
                 android:orientation="vertical"

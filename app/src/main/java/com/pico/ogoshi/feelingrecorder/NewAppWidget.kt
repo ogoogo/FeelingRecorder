@@ -40,6 +40,7 @@ class NewAppWidget : AppWidgetProvider() {
                 views.setTextViewText(R.id.widgetPerson, person)
             } else {
                 views.setTextViewText(R.id.widgetContent, content)
+                views.setTextViewText(R.id.widgetPerson,"")
             }
             views.setTextViewText(R.id.appwidget_text, widgetText)
             val intent = Intent(context, MainActivity::class.java)

@@ -14,8 +14,8 @@ android {
         applicationId "com.pico.ogoshi.feelingrecorder"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 7
-        versionName "2.02"
+        versionCode 8
+        versionName "2.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

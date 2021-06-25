@@ -47,7 +47,7 @@
             app:endIconTint="@color/teal_200"
             app:layout_constraintStart_toStartOf="@+id/textField"
             android:hint="言われた言葉"
-            app:boxBackgroundColor="#FFFFFF" app:layout_constraintTop_toBottomOf="@+id/textField"
+            app:boxBackgroundColor="@color/whitegray" app:layout_constraintTop_toBottomOf="@+id/textField"
             android:layout_marginTop="8dp">
         <EditText
                 android:layout_width="wrap_content"
@@ -94,7 +94,7 @@
             app:boxStrokeColor="@color/teal_200"
             app:endIconTint="@color/teal_200"
             android:hint="人の名前"
-            app:boxBackgroundColor="#FFFFFF" android:layout_marginTop="15dp"
+            app:boxBackgroundColor="@color/whitegray" android:layout_marginTop="15dp"
             app:layout_constraintTop_toBottomOf="@+id/dateTextView">
         <EditText
                 android:layout_width="wrap_content"
@@ -156,7 +156,7 @@
             app:endIconTint="@color/teal_200" app:layout_constraintStart_toStartOf="@+id/diarySwitch"
             android:hint="日記"
             app:layout_constraintBottom_toTopOf="@+id/saveButton" android:layout_marginBottom="16dp"
-            app:layout_constraintEnd_toEndOf="parent" app:boxBackgroundColor='#FFFFFF'>
+            app:layout_constraintEnd_toEndOf="parent" app:boxBackgroundColor='@color/whitegray'>
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

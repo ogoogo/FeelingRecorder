@@ -37,6 +37,7 @@ class SavedActivity : AppCompatActivity() {
 
 
         if(goodOrBad==false) {
+            saveTextView.text="ごちそうさまでした！"
             val goodfeelings: RealmResults<Memo> = readGood()
             imageView3.setImageResource(R.drawable.kotori4)
             if (goodfeelings.isEmpty()){
@@ -57,7 +58,7 @@ class SavedActivity : AppCompatActivity() {
                     messageTextView2.text = goodText
                     messageTextView3.text = "明日はきっとイイコトあります！"
                 }else if(goodQuoteOrNot==true){
-                    saveTextView.text="ごちそうさまでした！"
+
                     messageTextView1.text = "${goodYear}年${goodMonth}月${goodDate}日には\n${goodPerson}に"
                     messageTextView2.text = "「${goodQUote}」"
                     messageTextView3.text = "と言われました！\n明日はきっとイイコトあります！"
